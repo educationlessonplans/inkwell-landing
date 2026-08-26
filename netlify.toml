@@ -1,21 +1,14 @@
-# Netlify configuration for Inkwell unified deployment
-# One site serves BOTH landing at /inkwell/ and the real Inkwell web app at /inkwell/app/
-# The app bundle lands in dist/app during the build process.
+# Netlify configuration — Inkwell landing page.
+# Serves the blended landing at /inkwell/* (via main-site proxy). The real
+# web app stays on its own Netlify site (theinkwellapp), proxied separately
+# by getbacktoteaching.com's redirect rules.
 
 [build]
-  command = "npm ci && INKWELL_BASE=/inkwell/ npm run build && git clone --depth 1 https://github.com/educationlessonplans/inkwell /tmp/inkwell-app && cd /tmp/inkwell-app && npm ci && INKWELL_BASE=/inkwell/app/ npm run build && rm -rf dist-app && mkdir dist-app && cp -r dist/. dist-app/ && rm -rf \"$OLDPWD/dist/app\" && mkdir -p \"$OLDPWD/dist/app\" && cp -r dist-app/. \"$OLDPWD/dist/app/\""
-  publish = "dist"
-
- # Real Inkwell web app SPA fallback. NOTE: the main site's proxy strips the
- # /inkwell prefix before requests land here, so origin paths start at /app/.
- # Static files under /app/ are served directly first; this only catches
- # client-side routes.
- [[redirects]]
-   from = "/app/*"
-   to = "/app/index.html"
-   status = 200
-
+  # Landing page only. The Inkwell web app lives on its own Netlify site
+  # (theinkwellapp), proxied at /inkwell/app/* by the main getbacktoteaching.com site.
+  command = "npm ci && INKWELL_BASE=/inkwell/ npm run build"
 # Canonical landing URL redirect
+
 [[redirects]]
   from = "/inkwell"
   to = "/inkwell/"
