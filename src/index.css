@@ -1,0 +1,217 @@
+@import "tailwindcss";
+
+@custom-variant dark (&:where(.dark, .dark *));
+
+:root {
+  --parchment: #FAF6F0;
+  --ink: #232020;
+  --wax-seal: #8B261D;
+  --amber: #B45309;
+  --brass: #C49232;
+  --vellum: #F3ECDD;
+  --card-bg: #F3ECDD;
+  --card-border: rgba(196, 146, 50, 0.32);
+  --paper-bg: #FAF6F0;
+  
+  /* Dark academia supporting palette */
+  --espresso: #2c1a0e;
+  --forest: #26382d;
+  --oxblood: #641d2b;
+  --parchment-dark: #e8e0cf;
+  --brass-dark: #b08d57;
+}
+
+.dark {
+  --parchment: #120e0b;
+  --ink: #FAF6F0;
+  --wax-seal: #a83226;
+  --amber: #d97706;
+  --brass: #d4a244;
+  --vellum: #19120e;
+  --card-bg: #1c1510;
+  --card-border: rgba(212, 162, 68, 0.28);
+  --paper-bg: #150f0c;
+  
+  --espresso: #180e08;
+  --forest: #1e2c23;
+  --oxblood: #4a151f;
+  --parchment-dark: #2a2018;
+  --brass-dark: #cda250;
+}
+
+body {
+  background-color: var(--parchment);
+  color: var(--ink);
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+/* Custom Typography Utilities */
+.font-display-cormorant {
+  font-family: 'Cormorant Garamond', Georgia, serif;
+}
+
+.font-display-playfair {
+  font-family: 'Playfair Display', Georgia, serif;
+}
+
+.font-lora {
+  font-family: 'Lora', Georgia, serif;
+}
+
+.font-newsreader {
+  font-family: 'Newsreader', Georgia, serif;
+}
+
+.font-sans-plex {
+  font-family: 'IBM Plex Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+}
+
+.font-handwriting {
+  font-family: 'Caveat', cursive;
+}
+
+/* Texture & Card Styling */
+.book-cloth-card {
+  background-color: var(--card-bg);
+  border: 1px solid var(--card-border);
+  border-radius: 14px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08), 0 1px 3px rgba(0, 0, 0, 0.04);
+  position: relative;
+  background-image: radial-gradient(rgba(196, 146, 50, 0.08) 1px, transparent 1px);
+  background-size: 16px 16px;
+  transition: background-color 0.3s ease, border-color 0.3s ease, transform 0.2s ease;
+}
+
+.dark .book-cloth-card {
+  background-color: #1c1510;
+  border-color: rgba(212, 162, 68, 0.24);
+  box-shadow: 0 14px 38px rgba(0, 0, 0, 0.45);
+  background-image: radial-gradient(rgba(212, 162, 68, 0.07) 1px, transparent 1px);
+}
+
+.vellum-panel {
+  background-color: var(--vellum);
+  border: 1px solid var(--card-border);
+}
+
+/* Wax Seal button hover effect */
+.btn-wax-seal {
+  background-color: var(--wax-seal);
+  color: #FAF6F0;
+  transition: all 0.25s cubic-bezier(0.22, 1, 0.36, 1);
+  box-shadow: 0 4px 14px rgba(139, 38, 29, 0.28), inset 0 1px 0 rgba(255, 255, 255, 0.2);
+}
+
+.btn-wax-seal:hover {
+  background-color: #9c2b20;
+  transform: translateY(-1px);
+  box-shadow: 0 6px 18px rgba(139, 38, 29, 0.38), inset 0 1px 0 rgba(255, 255, 255, 0.25);
+}
+
+.btn-wax-seal:active {
+  transform: translateY(0);
+}
+
+/* Focus states */
+*:focus-visible {
+  outline: 2px solid var(--brass);
+  outline-offset: 3px;
+}
+
+/* Marquee animation */
+@keyframes marquee {
+  0% {
+    transform: translateX(0%);
+  }
+  100% {
+    transform: translateX(-50%);
+  }
+}
+
+.animate-marquee {
+  display: flex;
+  width: max-content;
+  animation: marquee 30s linear infinite;
+}
+
+.marquee-container:hover .animate-marquee,
+.marquee-container:focus-within .animate-marquee {
+  animation-play-state: paused;
+}
+
+/* Ink bleed animation */
+@keyframes inkSpread {
+  0% {
+    opacity: 0;
+    transform: scale(0.85);
+  }
+  100% {
+    opacity: 0.15;
+    transform: scale(1);
+  }
+}
+
+.ink-spread-bg {
+  animation: inkSpread 1.2s ease-out forwards;
+}
+
+/* Prefers-reduced-motion rules */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+  
+  .animate-marquee {
+    animation: none !important;
+    transform: none !important;
+  }
+
+  .parallax-item {
+    transform: none !important;
+  }
+}
+
+/* Custom Scrollbar for editor preview */
+.parchment-scroll::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+
+.parchment-scroll::-webkit-scrollbar-track {
+  background: rgba(196, 146, 50, 0.08);
+}
+
+.parchment-scroll::-webkit-scrollbar-thumb {
+  background: rgba(196, 146, 50, 0.3);
+  border-radius: 3px;
+}
+
+.dark .parchment-scroll::-webkit-scrollbar-thumb {
+  background: rgba(212, 162, 68, 0.35);
+}
+
+.parchment-scroll::-webkit-scrollbar-thumb:hover {
+  background: rgba(196, 146, 50, 0.5);
+}
+
+@layer utilities {
+  .parallax-item {
+    will-change: transform;
+    transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.3s ease;
+  }
+  .parallax-item:hover {
+    transform: translateY(-4px) scale(1.02);
+    box-shadow: 0 12px 24px -6px rgba(44, 26, 14, 0.18);
+  }
+  .parallax-slow {
+    transition: transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+  .parallax-fast {
+    transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+}

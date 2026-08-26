@@ -1,13 +1,20 @@
-# Inkwell — Landing Page
+<div align="center">
+<img width="1200" height="475" alt="GHBanner" src="https://ai.google.dev/static/site-assets/images/share-ais-513315318.png" />
+</div>
 
-Marketing landing page for [Inkwell](https://github.com/educationlessonplans/inkwell), an offline-first novel-writing studio.
+# Run and deploy your AI Studio app
 
-Built with static HTML/CSS/JS. No build step required.
+This contains everything you need to run your app locally.
 
-## Preview locally
+View your app in AI Studio: https://ai.studio/apps/c1026ce4-2c0d-4fe7-aa10-097fa98fb4f3
 
-Open `index.html` in a browser, or:
+## Run Locally
 
-```
-npx serve .
-```
+**Prerequisites:**  Node.js
+
+
+1. Install dependencies:
+   `npm install`
+2. Set the `GEMINI_API_KEY` in [.env.local](.env.local) to your Gemini API key
+3. Run the app:
+   `npm run dev`
