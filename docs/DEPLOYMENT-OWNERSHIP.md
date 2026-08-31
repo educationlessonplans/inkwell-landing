@@ -73,7 +73,7 @@ No public purchase-start or PayPal webhook redirects are currently configured: `
 6. Deploy the `dist` directory through the linked Netlify project.
 7. Run route/API/header smoke checks against the deploy URL.
 
-Never hand-edit `dist` or `app-dist`, and never point production at an unverified app revision. Keep paid offers disabled until the payment activation gate in `PLAN.md` is explicitly passed.
+Never hand-edit `dist` or `app-dist`, and never point production at an unverified app revision. Keep paid offers disabled until the payment activation gate in the active product-readiness checkpoint is explicitly passed.
 
 ## Current risks and ownership gaps
 
