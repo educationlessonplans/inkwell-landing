@@ -54,45 +54,45 @@ SECRETS_SCAN_OMIT_KEYS = "VITE_SUPABASE_PUBLISHABLE_KEY"
     CDN-Cache-Control = "no-store"
 
 [[redirects]]
-  # Legacy compatibility only: session and entitlement routes remain held here until the dedicated production Worker is approved and attached.
+  # Approved dedicated production Worker target for session and entitlement routes.
   from = "/api/auth/session"
-  to = "https://limiteduses.teachtylerhenley.workers.dev/api/auth/session"
+  to = "https://inkwell-entitlement-worker.teachtylerhenley.workers.dev/api/auth/session"
   status = 200
   force = true
 
 [[redirects]]
   from = "/api/entitlement"
-  to = "https://limiteduses.teachtylerhenley.workers.dev/api/entitlement"
+  to = "https://inkwell-entitlement-worker.teachtylerhenley.workers.dev/api/entitlement"
   status = 200
   force = true
 
 [[redirects]]
   from = "/api/entitlement/prime"
-  to = "https://limiteduses.teachtylerhenley.workers.dev/api/entitlement/prime"
+  to = "https://inkwell-entitlement-worker.teachtylerhenley.workers.dev/api/entitlement/prime"
   status = 200
   force = true
 
 [[redirects]]
   from = "/api/entitlement/settle"
-  to = "https://limiteduses.teachtylerhenley.workers.dev/api/entitlement/settle"
+  to = "https://inkwell-entitlement-worker.teachtylerhenley.workers.dev/api/entitlement/settle"
   status = 200
   force = true
 
 [[redirects]]
   from = "/api/entitlement/recover"
-  to = "https://limiteduses.teachtylerhenley.workers.dev/api/entitlement/recover"
+  to = "https://inkwell-entitlement-worker.teachtylerhenley.workers.dev/api/entitlement/recover"
   status = 200
   force = true
 
 [[redirects]]
-  # Legacy compatibility only: catalog and capability reads remain held here until the dedicated production Worker is approved and attached.
+  # Approved dedicated production Worker target for catalog and capability reads.
   from = "/api/catalog"
-  to = "https://limiteduses.teachtylerhenley.workers.dev/api/catalog"
+  to = "https://inkwell-entitlement-worker.teachtylerhenley.workers.dev/api/catalog"
   status = 200
   force = true
 
 [[redirects]]
   from = "/api/capabilities"
-  to = "https://limiteduses.teachtylerhenley.workers.dev/api/capabilities"
+  to = "https://inkwell-entitlement-worker.teachtylerhenley.workers.dev/api/capabilities"
   status = 200
   force = true
