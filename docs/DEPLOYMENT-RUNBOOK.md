@@ -4,9 +4,9 @@ This runbook deploys the unified Inkwell landing page and the bundled writing ap
 
 ## Ownership and release inputs
 
-- Landing/deployment workspace: `C:/tmp/inkwellwebsite`
-- Canonical app source: `C:/tmp/inkwell-remote`
-- Bundled app artifact: `C:/tmp/inkwellwebsite/app-dist`
+- Landing/deployment workspace: repository root (this checkout)
+- Canonical app source: separate `educationlessonplans/inkwell` repository, currently checked out at `C:/tmp/inkwell-remote`
+- Bundled app artifact: `app-dist/` in this checkout
 - Netlify site: `inkwelllanding`
 - Netlify site ID: `f4e12876-23af-4d9d-b774-3bd92be07285`
 - Current public URL: `https://inkwelllanding.netlify.app`
@@ -17,7 +17,7 @@ This runbook deploys the unified Inkwell landing page and the bundled writing ap
 
 ## Prerequisites
 
-Run from `C:/tmp/inkwellwebsite`. The unified build owns dependency installation and automatically selects native Windows npm when `cmd.exe` is available:
+Run from the repository root. The unified build owns dependency installation and automatically selects native Windows npm when `cmd.exe` is available:
 
 ```bash
 bash -n build.sh
@@ -54,7 +54,7 @@ The smoke command verifies landing HTML and account-boundary copy, the app shell
 
 ## Account-path configuration and verification
 
-The mounted app exposes its Supabase magic-link form only when the built artifact receives both browser-safe `VITE_SUPABASE_URL` and `VITE_SUPABASE_PUBLISHABLE_KEY` values. The canonical app template at `C:/tmp/inkwell-remote/.env.example` documents this boundary without storing a key. These production variables are configured in Netlify, the auth-enabled app was rebuilt, and preview deploy `6a94c796a8d5e245917fbec4` plus production deploy `6a94c7ecaf4b5c60c7e026f4` pass route/PWA/payment-safety smoke checks. Live Bladebro inspection opened the magic-link email callback, reached `Signed in`, preserved that state across reload, and verified `Sign out` returns to the magic-link form. A Bladebro snapshot named `inkwell-gmail-auth` was created, but restoring it after the driver restart still required Google's passkey and showed `Signed out`, so Gmail and Inkwell persistent authentication remain unverified. Never place service-role keys, PayPal credentials, or private Worker secrets in client-visible configuration.
+The mounted app exposes its Supabase magic-link form only when the built artifact receives both browser-safe `VITE_SUPABASE_URL` and `VITE_SUPABASE_PUBLISHABLE_KEY` values. The canonical app repository's `.env.example` documents this boundary without storing a key. These production variables are configured in Netlify, the auth-enabled app was rebuilt, and preview deploy `6a94c796a8d5e245917fbec4` plus production deploy `6a94c7ecaf4b5c60c7e026f4` pass route/PWA/payment-safety smoke checks. Live Bladebro inspection opened the magic-link email callback, reached `Signed in`, preserved that state across reload, and verified `Sign out` returns to the magic-link form. A Bladebro snapshot named `inkwell-gmail-auth` was created, but restoring it after the Chrome reset required Google's passkey and ended at `Signed out`; persistent Gmail authentication and a fresh authenticated Inkwell-state save remain unverified.
 
 ## Deploy a preview first
 
@@ -107,7 +107,7 @@ After the rollback completes, run the expanded smoke script against `https://ink
 
 ## Troubleshooting
 
-- **Windows dependency/tool shims:** the landing scripts invoke Vite, TypeScript, and `tsx` through their Node entrypoints. `build.sh` detects `cmd.exe` and runs `npm ci` plus both the landing build and pinned fallback app build through Windows npm, preserving native optional packages; Netlify's Linux environment uses npm directly. If a standalone Bash `npm ci` has already replaced the host-specific dependencies, run `cmd.exe /d /c npm ci` from `C:/tmp/inkwellwebsite`, then rerun the checks. Do not bypass type validation.
+- **Windows dependency/tool shims:** the landing scripts invoke Vite, TypeScript, and `tsx` through their Node entrypoints. `build.sh` detects `cmd.exe` and runs `npm ci` plus both the landing build and pinned fallback app build through Windows npm, preserving native optional packages; Netlify's Linux environment uses npm directly. If a standalone Bash `npm ci` has already replaced the host-specific dependencies, run `cmd.exe /d /c npm ci` from the repository root, then rerun the checks. Do not bypass type validation.
 - **`bash build.sh` cannot find the app:** restore `app-dist`, or make the pinned app revision anonymously fetchable before relying on the fallback clone.
 - **App route returns the landing page:** inspect `dist/inkwell/app/index.html`, confirm the app asset paths begin with `/inkwell/app/`, and confirm the `/inkwell/app/*` SPA redirect remains in `netlify.toml`.
 - **Manifest or service worker is missing:** rebuild and confirm the four required files under `dist/inkwell/app/` before deploying.
