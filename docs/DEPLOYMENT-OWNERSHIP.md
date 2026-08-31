@@ -14,6 +14,8 @@ This repository versions the landing/deployment source and the verified mounted 
 
 The fallback clone revision is `a1451889c2a0fc36b1318a43ddbcf0d15e54d08f` (the pushed canonical app readiness boundary). It is a separately pinned recovery input; the bundled `app-dist` artifact remains the normal self-contained deployment input.
 
+The dedicated entitlement Worker source and Wrangler configuration are committed separately from this landing repository. The deployed Worker source boundary is commit `bc4371c`; its production endpoint is `https://inkwell-entitlement-worker.teachtylerhenley.workers.dev` and its D1 binding is `inkwell-entitlement`.
+
 ## Build and stitching
 
 `build.sh` is the unified build entrypoint and is invoked by `netlify.toml` as `bash build.sh`.
@@ -58,10 +60,13 @@ The linked Netlify project is:
 - Project ID: `f4e12876-23af-4d9d-b774-3bd92be07285`
 - Team: `EduCraft`
 - Temporary public URL: `https://inkwelllanding.netlify.app`
-- Configuration: tracked `netlify.toml` in this connected GitHub CI checkout; Netlify runs `bash build.sh` and publishes `dist`
+- Configuration: tracked `netlify.toml` in this connected GitHub CI checkout; GitHub `main` is the active Netlify CI source, Netlify runs `bash build.sh`, and publishes `dist`
 
-No future paid domain is assumed by the build. The site serves the landing at `/`, the app at `/inkwell/app/`, and routes app API paths through the redirects in `netlify.toml`.
-No public purchase-start or PayPal webhook redirects are currently configured: `/api/inkwell-purchase-start`, `/api/purchase-start`, and `/api/paypal/webhook` return HTTP 404 while sales are gated. The current session, entitlement, catalog, and capability redirects remain compatibility-only routes to the legacy `limiteduses` Worker and are not accepted as Inkwell backend provenance. Do not activate payments until the dedicated production Worker, D1 schema, proof/origin configuration, and payment gate are deliberately reconciled and approved.
+No future paid domain is assumed by the build. The site serves the landing at `/`, the app at `/inkwell/app/`, and routes app API paths through the redirects in `netlify.toml`. The forced session, catalog, capabilities, and entitlement redirects target `https://inkwell-entitlement-worker.teachtylerhenley.workers.dev` (including `/api/auth/session`, `/api/catalog`, `/api/capabilities`, `/api/entitlement`, `/api/entitlement/prime`, `/api/entitlement/settle`, and `/api/entitlement/recover`).
+
+Production D1 parity tables and columns are applied on `inkwell-entitlement`: `inkwell_accounts`, `inkwell_credits`, `inkwell_settlement_receipts`, `inkwell_provider_transactions`, and `inkwell_idempotency`, including `credit_kind`, `free_day`, and `settlement_receipt_id` with the required uniqueness constraints/indexes.
+
+Payment purchase and webhook routes remain intentionally absent/404 while sales are gated: `/api/inkwell-purchase-start`, `/api/purchase-start`, and `/api/paypal/webhook` must return HTTP 404, with `INKWELL_PAYMENTS_ENABLED=false`. No sales activation is authorized.
 
 ## Safe update procedure
 
@@ -70,14 +75,15 @@ No public purchase-start or PayPal webhook redirects are currently configured: `
 3. Confirm the app revision intended for release and regenerate `app-dist/` from that source with the host-aware mounted build: on Windows use `cmd.exe /d /c "set INKWELL_BASE=/inkwell/app/&& npm run build"`; on Bash/Netlify use `INKWELL_BASE=/inkwell/app/ npm run build`.
 4. From this repository root, run `bash build.sh`.
 5. Verify the generated landing and `/inkwell/app/` shell before deployment.
-6. Push the reviewed change to `main`; Netlify CI runs `bash build.sh` and publishes `dist`.
-7. Run route/API/header smoke checks against the ready deploy URL.
+6. Push the reviewed change to `main`; active Netlify CI runs `bash build.sh` and publishes `dist`.
+7. Run route/API/header smoke checks against the ready deploy URL, including dedicated Worker JSON 401/CORS checks and payment-route 404 checks.
 
-Never hand-edit `dist` or `app-dist`, and never point production at an unverified app revision. Keep paid offers disabled until the payment activation gate in the active product-readiness checkpoint is explicitly passed.
+Never hand-edit `dist` or `app-dist`, and never point production at an unverified app revision. Every future deployment change requires the smoke checks to pass and any payment activation to receive explicit approval; absent that approval, keep `INKWELL_PAYMENTS_ENABLED=false` and all payment routes at HTTP 404.
 
 ## Current risks and ownership gaps
 
-- GitHub `main` is the connected Netlify CI source and currently builds through `bash build.sh`; keep the CI command and `netlify.toml` contract aligned.
+- GitHub `main` is the connected and active Netlify CI source and currently builds through `bash build.sh`; keep the CI command and `netlify.toml` contract aligned.
 - `app-dist` is a generated/bundled artifact with no manifest recording the source commit. The current entrypoint matches the local app build, but a future workflow should add a source-revision manifest or equivalent release metadata.
 - The app repository contains an ignored `.netlify/` directory used for local deployment tooling state; it is not application source and is excluded by `.gitignore`.
 - The fallback GitHub clone is not the normal deployment path and may fail where anonymous repository access or the configured credential helper is unavailable.
+- The dedicated Worker source/config and production D1 are separately owned from this landing checkout; reconcile Worker and schema changes there before updating the attached Netlify redirects.
