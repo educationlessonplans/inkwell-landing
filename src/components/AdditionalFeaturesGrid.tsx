@@ -24,11 +24,11 @@ export const AdditionalFeaturesGrid: React.FC<AdditionalFeaturesGridProps> = ({ 
       case 'Timer': return <HourglassIcon className={iconClass} />;
       case 'Gauge': return <SpeedometerIcon className={iconClass} />;
       case 'Camera': return <SnapshotCameraIcon className={iconClass} />;
-      case 'HardDriveDownload': return <DiskBackupIcon className={iconClass} />;
+      case 'Backup': return <DiskBackupIcon className={iconClass} />;
       case 'Command': return <KeyCommandIcon className={iconClass} />;
       case 'History': return <HourglassIcon className={iconClass} />;
       case 'Trash2': return <TrashPapyrusIcon className={iconClass} />;
-      case 'WifiOff': return <ShieldLockIcon className={iconClass} />;
+      case 'Shield': return <ShieldLockIcon className={iconClass} />;
       default: return <HourglassIcon className={iconClass} />;
     }
   };

@@ -1,15 +1,14 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { motion, AnimatePresence } from 'motion/react';
 import { HERO_WORD_SWAPS, WORKBENCH_SNIPPET } from '../data/content';
-import { Download, Sparkles, Feather, Command, Compass, Volume2, Shield, Clock, BookOpen } from 'lucide-react';
+import { ArrowUpRight, Sparkles, Feather, Command, Compass, Volume2, Shield, Clock, BookOpen } from 'lucide-react';
 import { QuillNibIcon, SealCheckIcon, AntiqueReadingLampIcon, BrassStarIcon } from './CustomIcons';
 
 interface HeroProps {
-  onOpenDownload: () => void;
   onOpenShortcuts: () => void;
 }
 
-export const Hero: React.FC<HeroProps> = ({ onOpenDownload, onOpenShortcuts }) => {
+export const Hero: React.FC<HeroProps> = ({ onOpenShortcuts }) => {
   const [wordIndex, setWordIndex] = useState(0);
   const [typedContent, setTypedContent] = useState(WORKBENCH_SNIPPET);
   const [activeMode, setActiveMode] = useState<'zen' | 'focus' | 'distill'>('zen');
@@ -81,7 +80,7 @@ export const Hero: React.FC<HeroProps> = ({ onOpenDownload, onOpenShortcuts }) =
         className="absolute top-44 right-4 lg:right-12 hidden xl:flex items-center gap-2 bg-[#F3ECDD]/90 dark:bg-[#1c1510]/90 backdrop-blur-xs px-3.5 py-2 rounded-xl border border-[#C49232]/35 dark:border-[#d4a244]/30 shadow-lg text-xs font-sans-plex pointer-events-none"
       >
         <SealCheckIcon className="w-4 h-4 text-[#26382d] dark:text-[#86efac]" />
-        <span className="font-medium text-[#26382d] dark:text-[#86efac]">0 Cloud Sync · 100% Offline IndexedDB</span>
+        <span className="font-medium text-[#26382d] dark:text-[#86efac]">Local-first drafts · private workspace</span>
       </motion.div>
 
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -100,8 +99,7 @@ export const Hero: React.FC<HeroProps> = ({ onOpenDownload, onOpenShortcuts }) =
               className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-[#C49232]/15 dark:bg-[#d4a244]/15 border border-[#C49232]/30 dark:border-[#d4a244]/30 text-[#B45309] dark:text-[#d4a244] text-xs font-sans-plex font-medium tracking-wider uppercase"
             >
               <AntiqueReadingLampIcon className="w-3.5 h-3.5 text-[#B45309] dark:text-[#d4a244]" />
-              <span>Offline Novel Studio</span>
-              <span className="text-[#8B261D] dark:text-[#d4a244] font-bold">v0.4.0</span>
+              <span>Browser writing studio</span>
             </motion.div>
 
             {/* Kinetic Serif Headline */}
@@ -122,7 +120,7 @@ export const Hero: React.FC<HeroProps> = ({ onOpenDownload, onOpenShortcuts }) =
                     transition={{ duration: 0.35, ease: 'easeOut' }}
                     className="inline-block"
                   >
-                    *{HERO_WORD_SWAPS[wordIndex]}*.
+                    {HERO_WORD_SWAPS[wordIndex]}.
                   </motion.span>
                 </AnimatePresence>
               </span>
@@ -135,7 +133,7 @@ export const Hero: React.FC<HeroProps> = ({ onOpenDownload, onOpenShortcuts }) =
               transition={{ duration: 0.6, delay: 0.2 }}
               className="font-newsreader text-lg sm:text-xl text-[#232020]/85 dark:text-[#FAF6F0]/85 leading-relaxed"
             >
-              An offline, privacy-first studio crafted for serious novelists. Corkboard plotting, character ledgers, and typewriter focus—living entirely on your computer.
+              A private, local-first writing workspace for serious novelists. Draft, plot, track characters, and refine your prose in the browser.
             </motion.p>
 
             {/* Action Buttons */}
@@ -145,15 +143,14 @@ export const Hero: React.FC<HeroProps> = ({ onOpenDownload, onOpenShortcuts }) =
               transition={{ duration: 0.6, delay: 0.3 }}
               className="pt-2 flex flex-col sm:flex-row items-stretch sm:items-center gap-3 sm:gap-4"
             >
-              <button
-                onClick={onOpenDownload}
-                type="button"
+              <a
+                href="/inkwell/app/"
                 className="btn-wax-seal px-6 py-3.5 rounded-xl text-base font-sans-plex font-medium tracking-wide flex items-center justify-center gap-2.5 shadow-lg cursor-pointer transform hover:-translate-y-0.5 active:translate-y-0 transition-transform"
-                id="hero-download-btn"
+                id="hero-open-app-btn"
               >
-                <Download className="w-5 h-5" />
-                <span>Download Inkwell Free</span>
-              </button>
+                <ArrowUpRight className="w-5 h-5" />
+                <span>Open the writing desk</span>
+              </a>
 
               <button
                 onClick={onOpenShortcuts}
@@ -169,16 +166,16 @@ export const Hero: React.FC<HeroProps> = ({ onOpenDownload, onOpenShortcuts }) =
             {/* Key Differentiator Badges */}
             <div className="pt-4 border-t border-[#C49232]/20 dark:border-[#d4a244]/20 grid grid-cols-3 gap-2">
               <div className="p-2.5 rounded-lg bg-[#F3ECDD]/60 dark:bg-[#1a130e] border border-[#C49232]/25 dark:border-[#d4a244]/25 text-center sm:text-left">
-                <div className="text-xs font-sans-plex font-bold uppercase text-[#8B261D] dark:text-[#d4a244] tracking-wider">IndexedDB</div>
-                <div className="text-[11px] font-newsreader text-[#232020]/85 dark:text-[#FAF6F0]/80">100% Local storage</div>
+                <div className="text-xs font-sans-plex font-bold uppercase text-[#8B261D] dark:text-[#d4a244] tracking-wider">Local-first</div>
+                <div className="text-[11px] font-newsreader text-[#232020]/85 dark:text-[#FAF6F0]/80">Drafts stored in your browser</div>
               </div>
               <div className="p-2.5 rounded-lg bg-[#F3ECDD]/60 dark:bg-[#1a130e] border border-[#C49232]/25 dark:border-[#d4a244]/25 text-center sm:text-left">
-                <div className="text-xs font-sans-plex font-bold uppercase text-[#8B261D] dark:text-[#d4a244] tracking-wider">No Accounts</div>
-                <div className="text-[11px] font-newsreader text-[#232020]/85 dark:text-[#FAF6F0]/80">No login or tracking</div>
+                <div className="text-xs font-sans-plex font-bold uppercase text-[#8B261D] dark:text-[#d4a244] tracking-wider">Private desk</div>
+                <div className="text-[11px] font-newsreader text-[#232020]/85 dark:text-[#FAF6F0]/80">Your writing stays yours</div>
               </div>
               <div className="p-2.5 rounded-lg bg-[#F3ECDD]/60 dark:bg-[#1a130e] border border-[#C49232]/25 dark:border-[#d4a244]/25 text-center sm:text-left">
-                <div className="text-xs font-sans-plex font-bold uppercase text-[#8B261D] dark:text-[#d4a244] tracking-wider">Pure Craft</div>
-                <div className="text-[11px] font-newsreader text-[#232020]/85 dark:text-[#FAF6F0]/80">No AI writing sludge</div>
+                <div className="text-xs font-sans-plex font-bold uppercase text-[#8B261D] dark:text-[#d4a244] tracking-wider">Pure craft</div>
+                <div className="text-[11px] font-newsreader text-[#232020]/85 dark:text-[#FAF6F0]/80">No generated prose</div>
               </div>
             </div>
           </div>

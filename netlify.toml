@@ -1,14 +1,18 @@
-# Netlify configuration — Inkwell landing page.
-# Serves the blended landing at /inkwell/* (via main-site proxy). The real
-# web app stays on its own Netlify site (theinkwellapp), proxied separately
-# by getbacktoteaching.com's redirect rules.
+# Netlify configuration for Inkwell unified deployment
+# One site serves BOTH the landing at / and the real Inkwell web app at /inkwell/app/
+# The app bundle lands in dist/inkwell/app during the build process.
 
 [build]
-  # Landing page only. The Inkwell web app lives on its own Netlify site
-  # (theinkwellapp), proxied at /inkwell/app/* by the main getbacktoteaching.com site.
-  command = "npm ci && INKWELL_BASE=/inkwell/ npm run build"
-# Canonical landing URL redirect
+  command = "bash build.sh"
+  publish = "dist"
 
+# Real Inkwell web app SPA fallback (static assets in /inkwell/app/ are served directly first)
+[[redirects]]
+  from = "/inkwell/app/*"
+  to = "/inkwell/app/index.html"
+  status = 200
+
+# Canonical landing URL redirect
 [[redirects]]
   from = "/inkwell"
   to = "/inkwell/"
@@ -19,3 +23,72 @@
   [headers.values]
     X-Frame-Options = "DENY"
     Referrer-Policy = "strict-origin-when-cross-origin"
+
+[[headers]]
+  # The service worker must never be cached by the browser, or updates stall.
+  for = "/inkwell/app/sw.js"
+  [headers.values]
+    Cache-Control = "public, max-age=0, must-revalidate"
+
+[[headers]]
+  for = "/inkwell/app/manifest.webmanifest"
+  [headers.values]
+    Content-Type = "application/manifest+json"
+
+[[headers]]
+  # Never let the app shell stay pinned to an older hashed JavaScript bundle.
+  for = "/inkwell/app/"
+  [headers.values]
+    Cache-Control = "public, max-age=0, must-revalidate"
+    CDN-Cache-Control = "no-store"
+
+[[headers]]
+  for = "/inkwell/app/index.html"
+  [headers.values]
+    Cache-Control = "public, max-age=0, must-revalidate"
+    CDN-Cache-Control = "no-store"
+
+[[redirects]]
+  # Legacy compatibility only: session and entitlement routes remain held here until the dedicated production Worker is approved and attached.
+  from = "/api/auth/session"
+  to = "https://limiteduses.teachtylerhenley.workers.dev/api/auth/session"
+  status = 200
+  force = true
+
+[[redirects]]
+  from = "/api/entitlement"
+  to = "https://limiteduses.teachtylerhenley.workers.dev/api/entitlement"
+  status = 200
+  force = true
+
+[[redirects]]
+  from = "/api/entitlement/prime"
+  to = "https://limiteduses.teachtylerhenley.workers.dev/api/entitlement/prime"
+  status = 200
+  force = true
+
+[[redirects]]
+  from = "/api/entitlement/settle"
+  to = "https://limiteduses.teachtylerhenley.workers.dev/api/entitlement/settle"
+  status = 200
+  force = true
+
+[[redirects]]
+  from = "/api/entitlement/recover"
+  to = "https://limiteduses.teachtylerhenley.workers.dev/api/entitlement/recover"
+  status = 200
+  force = true
+
+[[redirects]]
+  # Legacy compatibility only: catalog and capability reads remain held here until the dedicated production Worker is approved and attached.
+  from = "/api/catalog"
+  to = "https://limiteduses.teachtylerhenley.workers.dev/api/catalog"
+  status = 200
+  force = true
+
+[[redirects]]
+  from = "/api/capabilities"
+  to = "https://limiteduses.teachtylerhenley.workers.dev/api/capabilities"
+  status = 200
+  force = true
+

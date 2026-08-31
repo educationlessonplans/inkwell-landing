@@ -134,7 +134,7 @@ export const ManuscriptDiffViewer: React.FC = () => {
                 <p>
                   The bells in the harbor <span className="line-through text-[#8B261D]/70 dark:text-[#f87171]/70 decoration-[#8B261D]">started loudly ringing</span> struck midnight, their iron tongues muted by the fog. Kaelen felt very anxious because the boat hadn't arrived yet.
                 </p>
-                <p className="bg-[#8B261D]/5 dark:bg-[#8B261D]/15 p-2 rounded border-l-2 border-[#8B261D]/40">
+                <p className="bg-[#8B261D]/5 dark:bg-[#8B261D]/15 p-2 rounded border border-[#8B261D]/20 dark:border-[#8B261D]/35">
                   "You're awake," Maeve said softly as she came up the ladder with tea. <br />
                   "The boat missed the tide," he replied quickly. "The wax seal is totally broken."
                 </p>
@@ -171,7 +171,7 @@ export const ManuscriptDiffViewer: React.FC = () => {
                 <p>
                   The bells in the lower bailey struck midnight, their iron tongues muted by the thickening fog. Kaelen reached into the lining of his sea cloak, fingers brushing against the cold brass cylinder.
                 </p>
-                <p className="bg-[#26382d]/5 dark:bg-[#14532d]/25 p-2 rounded border-l-2 border-[#26382d] dark:border-[#86efac] font-medium">
+                <p className="bg-[#26382d]/5 dark:bg-[#14532d]/25 p-2 rounded border border-[#26382d]/25 dark:border-[#86efac]/35 font-medium">
                   "You're awake," a voice murmured from the trapdoor. <br />
                   He did not turn. He knew the gait before the floorboards took her weight. "The messenger ship missed the tide, Maeve. The seal on the letter is broken."
                 </p>

@@ -1,131 +1,74 @@
-import React, { useState, useEffect } from 'react';
-import { motion, AnimatePresence } from 'motion/react';
-import { Download, Command, Sun, Moon, Feather, Layers, BookOpen, GitCompare } from 'lucide-react';
-import { WaxSealLogo } from './WaxSealLogo';
+import { ArrowUpRight } from 'lucide-react';
+import { useEffect, useState } from 'react';
 
-interface DynamicBottomBarProps {
-  onOpenDownload: () => void;
-  onOpenShortcuts: () => void;
-  theme: 'light' | 'dark';
-  onToggleTheme: () => void;
-}
-
-export const DynamicBottomBar: React.FC<DynamicBottomBarProps> = ({
-  onOpenDownload,
-  onOpenShortcuts,
-  theme,
-  onToggleTheme,
-}) => {
-  const [scrollProgress, setScrollProgress] = useState(0);
-  const [isVisible, setIsVisible] = useState(false);
+export const DynamicBottomBar = () => {
+  const [show, setShow] = useState(false);
+  const [dismissed, setDismissed] = useState(false);
 
   useEffect(() => {
+    const dismissedFlag = sessionStorage.getItem('inkwell:cta:dismissed') === '1';
+    setDismissed(dismissedFlag);
     const handleScroll = () => {
-      const totalHeight = document.documentElement.scrollHeight - window.innerHeight;
-      if (totalHeight > 0) {
-        const progress = Math.min(100, Math.max(0, Math.round((window.scrollY / totalHeight) * 100)));
-        setScrollProgress(progress);
-      }
-      if (window.scrollY > 300) {
-        setIsVisible(true);
-      } else {
-        setIsVisible(false);
-      }
+      setShow(window.scrollY > 600);
     };
-
     window.addEventListener('scroll', handleScroll, { passive: true });
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
+  const handleDismiss = () => {
+    sessionStorage.setItem('inkwell:cta:dismissed', '1');
+    setDismissed(true);
+  };
+
+  if (dismissed) return null;
+
   return (
-    <AnimatePresence>
-      {isVisible && (
-        <motion.div
-          initial={{ opacity: 0, y: 30, scale: 0.95 }}
-          animate={{ opacity: 1, y: 0, scale: 1 }}
-          exit={{ opacity: 0, y: 30, scale: 0.95 }}
-          transition={{ duration: 0.35, ease: 'easeOut' }}
-          className="fixed bottom-6 left-1/2 -translate-x-1/2 z-40 max-w-[92vw] sm:max-w-fit"
-          aria-label="Floating Navigation Island"
-        >
-          <div className="bg-[#FAF6F0]/95 dark:bg-[#18110d]/95 backdrop-blur-md px-3.5 py-2 rounded-2xl border-2 border-[#C49232]/45 dark:border-[#d4a244]/35 shadow-[0_12px_36px_rgba(0,0,0,0.2)] flex items-center gap-2 sm:gap-3 text-xs font-sans-plex">
-            
-            {/* Scroll Progress Ring / Percentage */}
-            <div className="flex items-center gap-1.5 pl-1 pr-2 border-r border-[#C49232]/25 dark:border-[#d4a244]/25">
-              <div className="w-4 h-4 rounded-full border-2 border-[#C49232]/30 dark:border-[#d4a244]/30 border-t-[#8B261D] dark:border-t-[#d4a244] animate-spin" style={{ animationDuration: '3s' }} />
-              <span className="font-mono font-bold text-[#8B261D] dark:text-[#d4a244] text-[11px]">
-                {scrollProgress}%
-              </span>
+    <div
+      className={`fixed bottom-0 left-0 right-0 z-40 transition-transform duration-300 ${
+        show ? 'translate-y-0' : 'translate-y-full'
+      }`}
+    >
+      <div className="bg-[#232020]/95 dark:bg-[#1a1a1a]/95 backdrop-blur-md border-t border-[#FAF6F0]/10 shadow-2xl">
+        <div className="max-w-6xl mx-auto px-4 sm:px-6 py-3 flex items-center justify-between gap-3">
+          <div className="flex items-center gap-2 sm:gap-3 min-w-0">
+            <span className="hidden sm:inline-flex items-center justify-center w-8 h-8 rounded-lg bg-[#FAF6F0]/10 text-[#FAF6F0] font-display-cormorant font-bold text-sm">
+              I
+            </span>
+            <div className="min-w-0">
+              <div className="text-[#FAF6F0] font-sans-plex font-semibold text-sm truncate">
+                Ready to write?
+              </div>
+              <div className="text-[#FAF6F0]/70 text-xs font-sans-plex hidden sm:block">
+                Open the app · local writing starts without an account · paid offers coming soon
+              </div>
             </div>
-
-            {/* Quick Workspace Anchor Links */}
-            <div className="hidden sm:flex items-center gap-1 text-[#232020]/80 dark:text-[#FAF6F0]/80">
-              <a
-                href="#hero-section"
-                className="px-2 py-1 rounded-md hover:bg-[#F3ECDD] dark:hover:bg-[#251a13] hover:text-[#8B261D] dark:hover:text-[#d4a244] transition-colors flex items-center gap-1"
-                title="Jump to Top"
-              >
-                <Feather className="w-3.5 h-3.5" />
-                <span>Desk</span>
-              </a>
-              <a
-                href="#craft-in-motion"
-                className="px-2 py-1 rounded-md hover:bg-[#F3ECDD] dark:hover:bg-[#251a13] hover:text-[#8B261D] dark:hover:text-[#d4a244] transition-colors flex items-center gap-1"
-                title="Jump to Craft in Motion"
-              >
-                <Layers className="w-3.5 h-3.5" />
-                <span>Stages</span>
-              </a>
-              <a
-                href="#manuscript-evolution"
-                className="px-2 py-1 rounded-md hover:bg-[#F3ECDD] dark:hover:bg-[#251a13] hover:text-[#8B261D] dark:hover:text-[#d4a244] transition-colors flex items-center gap-1"
-                title="Jump to Diff Evolution"
-              >
-                <GitCompare className="w-3.5 h-3.5" />
-                <span>Evolution</span>
-              </a>
-            </div>
-
-            {/* ⌘K Command Trigger */}
-            <button
-              onClick={onOpenShortcuts}
-              type="button"
-              className="p-1.5 rounded-lg border border-[#C49232]/30 dark:border-[#d4a244]/30 bg-[#F3ECDD]/80 dark:bg-[#221711] text-[#232020] dark:text-[#FAF6F0] hover:bg-[#F3ECDD] transition-all flex items-center gap-1 cursor-pointer"
-              title="Open Command Palette (⌘K)"
-              aria-label="Open Command Palette"
-            >
-              <Command className="w-3.5 h-3.5 text-[#8B261D] dark:text-[#d4a244]" />
-              <span className="hidden md:inline font-mono text-[10px]">⌘K</span>
-            </button>
-
-            {/* Dark Mode Toggle */}
-            <button
-              onClick={onToggleTheme}
-              type="button"
-              className="p-1.5 rounded-lg border border-[#C49232]/30 dark:border-[#d4a244]/30 bg-[#F3ECDD]/80 dark:bg-[#221711] text-[#232020] dark:text-[#FAF6F0] hover:bg-[#F3ECDD] transition-all cursor-pointer"
-              title="Toggle Theme"
-              aria-label="Toggle Theme"
-            >
-              {theme === 'dark' ? (
-                <Sun className="w-3.5 h-3.5 text-[#d4a244]" />
-              ) : (
-                <Moon className="w-3.5 h-3.5 text-[#8B261D]" />
-              )}
-            </button>
-
-            {/* Direct Download Action */}
-            <button
-              onClick={onOpenDownload}
-              type="button"
-              className="btn-wax-seal px-3 py-1.5 rounded-xl text-xs font-sans-plex font-medium flex items-center gap-1.5 cursor-pointer shadow-md"
-            >
-              <Download className="w-3.5 h-3.5" />
-              <span>Get Free</span>
-            </button>
-
           </div>
-        </motion.div>
-      )}
-    </AnimatePresence>
+
+          <div className="flex items-center gap-2 shrink-0">
+            <a
+              href="/inkwell/app/"
+              className="inline-flex items-center gap-1.5 px-4 py-2 rounded-lg bg-[#FAF6F0] text-[#232020] font-sans-plex font-semibold text-sm hover:bg-white transition-colors"
+            >
+              <span className="hidden xs:inline">Open app</span>
+              <span className="xs:hidden">Open</span>
+              <ArrowUpRight className="w-4 h-4" />
+            </a>
+            <a
+              href="#pricing"
+              className="hidden sm:inline-flex items-center gap-1.5 px-3 py-2 rounded-lg border border-[#FAF6F0]/20 text-[#FAF6F0] font-sans-plex font-semibold text-sm hover:bg-[#FAF6F0]/10 transition-colors"
+            >
+              See plans
+            </a>
+            <button
+              onClick={handleDismiss}
+              aria-label="Dismiss bar"
+              className="inline-flex items-center justify-center w-9 h-9 rounded-lg text-[#FAF6F0]/70 hover:text-[#FAF6F0] hover:bg-[#FAF6F0]/10 transition-colors"
+            >
+              ×
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
   );
 };

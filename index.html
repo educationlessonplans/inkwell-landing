@@ -3,13 +3,22 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Inkwell — Write privately. Work offline.</title>
-    <meta name="description" content="Inkwell is an offline-first novel studio for serious fiction writers. Fully private, IndexedDB local storage, no accounts, no cloud, no noise." />
-    <!-- <link rel="canonical" href="https://getbacktoteaching.com/inkwell/" /> -->
-    <meta property="og:title" content="Inkwell — Write privately. Work offline." />
-    <meta property="og:description" content="A writing desk in your pocket. No cloud. No account. No noise. Your manuscript stays on your machine." />
+    <title>Inkwell — A private writing desk in your browser.</title>
+    <meta name="description" content="Inkwell is a local-first browser writing studio for serious fiction writers. Start local writing without an account, with one full Analysis run per day. Paid access requires an account and server verification: Pro is $120 one-time for unlimited projects, Analysis is $30 one-time, and Subscription is $5/month; paid offers are coming soon." />
+    <meta name="keywords" content="fiction writing app, novel writing software, writing studio, local-first, manuscript analysis, daily free analysis" />
+    <meta name="author" content="Inkwell" />
+    <meta name="theme-color" content="#FAF6F0" />
+    <!-- Canonical URL: repoint once the new domain is live. -->
+    <!-- <link rel="canonical" href="https://getbacktoteaching.com/" /> -->
+    <meta property="og:title" content="Inkwell — A private writing desk in your browser." />
+    <meta property="og:description" content="A private, local-first writing studio. Start free with one full Analysis run per day; Pro, Analysis, and Subscription offers are coming soon." />
     <meta property="og:type" content="website" />
+    <meta property="og:locale" content="en_US" />
+    <meta property="og:site_name" content="Inkwell" />
     <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="Inkwell — A private writing desk in your browser." />
+    <meta name="twitter:description" content="Local-first writing studio. Start free with one full Analysis run per day; Pro is $120 for unlimited projects, Analysis is $30 one-time, and Subscription is $5/month, all coming soon." />
+
 
     <!-- Google Fonts Preconnect -->
     <link rel="preconnect" href="https://fonts.googleapis.com" />
@@ -19,6 +28,67 @@
       href="https://fonts.googleapis.com/css2?family=Caveat:wght@500;700&family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400;1,600&family=IBM+Plex+Sans:ital,wght@0,400;0,500;0,600;0,700;1,400&family=Lora:ital,wght@0,400;0,500;0,600;1,400;1,600&family=Newsreader:ital,opsz,wght@0,6..72,300;0,6..72,400;0,6..72,500;0,6..72,600;1,6..72,400;1,6..72,500&family=Playfair+Display:ital,wght@0,500;0,600;0,700;0,900;1,400;1,600&display=swap"
       rel="stylesheet"
     />
+
+    <!-- Structured data: paid offers are coming soon, so offers are not in stock. -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@graph": [
+        {
+          "@type": "Product",
+          "@id": "/#pro",
+          "name": "Inkwell Pro",
+          "description": "$120 one-time access to unlimited projects. Inkwell Pro does not include Analysis. Purchases are coming soon.",
+          "brand": { "@type": "Brand", "name": "Inkwell" },
+          "category": "Writing software",
+          "offers": {
+            "@type": "Offer",
+            "priceCurrency": "USD",
+            "price": "120",
+            "availability": "https://schema.org/OutOfStock",
+            "url": "/#pricing"
+          }
+        },
+        {
+          "@type": "Product",
+          "@id": "/#subscription",
+          "name": "Inkwell Subscription",
+          "description": "$5/month Subscription access to current and future Analysis releases while active. Purchases are coming soon.",
+          "brand": { "@type": "Brand", "name": "Inkwell" },
+          "category": "Writing software",
+          "offers": {
+            "@type": "Offer",
+            "priceCurrency": "USD",
+            "price": "5",
+            "priceSpecification": {
+              "@type": "UnitPriceSpecification",
+              "price": "5",
+              "priceCurrency": "USD",
+              "billingDuration": 1,
+              "unitText": "MONTH"
+            },
+            "availability": "https://schema.org/OutOfStock",
+            "url": "/#pricing"
+          }
+        },
+        {
+          "@type": "Product",
+          "@id": "/#analysis",
+          "name": "Inkwell Analysis",
+          "description": "$30 one-time access to the current major Analysis version. Purchases are coming soon.",
+          "brand": { "@type": "Brand", "name": "Inkwell" },
+          "category": "Writing software",
+          "offers": {
+            "@type": "Offer",
+            "priceCurrency": "USD",
+            "price": "30",
+            "availability": "https://schema.org/OutOfStock",
+            "url": "/#pricing"
+          }
+        }
+      ]
+    }
+    </script>
   </head>
   <body class="bg-[#FAF6F0] text-[#232020] antialiased selection:bg-[#8B261D]/20 selection:text-[#8B261D]">
     <div id="root"></div>

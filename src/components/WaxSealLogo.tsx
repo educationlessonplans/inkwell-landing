@@ -69,7 +69,7 @@ export const WaxSealLogo: React.FC<LogoProps> = ({
                 : 'text-[#8B261D]/80 dark:text-[#d4a244]/90'
             }`}
           >
-            Offline Novel Studio
+            Browser Novel Studio
           </span>
         </div>
       )}

@@ -16,7 +16,7 @@ export const ScrollDynamicSection: React.FC = () => {
       id: 'typewriter',
       title: '01. Raw Ink Drafting',
       subtitle: 'Typewriter Flow & Zen Focus',
-      description: 'Zero distractions. Your sentences flow directly to local disk without cloud latency or prompt fatigue.',
+      description: 'Zero distractions. Your sentences stay in your browser workspace while you write, without prompt fatigue.',
       badge: 'Flow State',
       icon: Feather,
     },
@@ -212,7 +212,7 @@ export const ScrollDynamicSection: React.FC = () => {
                       <p className="opacity-40">
                         The fog had swallowed the salt towers three hours before the evening bells.
                       </p>
-                      <p className="font-medium bg-[#8B261D]/5 dark:bg-[#8B261D]/20 p-3 rounded-lg border-l-3 border-[#8B261D] dark:border-[#d4a244]">
+                      <p className="font-medium bg-[#8B261D]/5 dark:bg-[#8B261D]/20 p-3 rounded-lg border border-[#8B261D]/20 dark:border-[#d4a244]/35">
                         Kaelen drew the bolt back with a sharp metallic clatter. The wax seal was cold in his palm, stamped with the mark of the salt chancellor.
                         <span className="inline-block w-2 h-5 bg-[#8B261D] dark:bg-[#d4a244] ml-1 animate-pulse" />
                       </p>
@@ -323,7 +323,7 @@ export const ScrollDynamicSection: React.FC = () => {
                     animate={{ opacity: 1, scale: 1, rotateY: 0 }}
                     exit={{ opacity: 0, scale: 0.9, rotateY: -20 }}
                     transition={{ duration: 0.5 }}
-                    className="w-68 sm:w-76 h-96 bg-gradient-to-br from-[#2c1a0e] via-[#232020] to-[#120e0b] dark:from-[#1d1109] dark:via-[#140c06] dark:to-[#0a0603] rounded-r-2xl rounded-l-sm border-y-2 border-r-2 border-[#C49232]/70 dark:border-[#d4a244]/70 shadow-[0_25px_60px_rgba(0,0,0,0.5)] p-6 text-center flex flex-col justify-between relative overflow-hidden"
+                    className="w-68 sm:w-76 h-96 bg-gradient-to-br from-[#2c1a0e] via-[#232020] to-[#120e0b] dark:from-[#1d1109] dark:via-[#140c06] dark:to-[#0a0603] rounded-r-2xl rounded-l-sm border border-[#C49232]/50 dark:border-[#d4a244]/50 shadow-[0_25px_60px_rgba(0,0,0,0.5)] p-6 text-center flex flex-col justify-between relative overflow-hidden"
                   >
                     {/* Spine highlight */}
                     <div className="absolute left-0 top-0 bottom-0 w-3.5 bg-gradient-to-r from-black/50 via-transparent to-transparent border-r border-[#C49232]/40" />

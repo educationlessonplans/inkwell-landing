@@ -1,6 +1,6 @@
 {
-  "name": "Inkwell — Offline Novel Writing Studio",
-  "description": "A single-page marketing landing page for Inkwell, the offline-first novel-writing studio for serious fiction writers. Fully private, IndexedDB storage, no cloud, no accounts.",
+  "name": "Inkwell — Private Browser Writing Studio",
+  "description": "A single-page marketing landing page for Inkwell, a local-first browser workspace for serious fiction writers with optional account-backed capabilities.",
   "requestFramePermissions": [],
   "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
 }

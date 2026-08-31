@@ -64,7 +64,7 @@ export const Introduction: React.FC = () => {
           className="max-w-[760px] mx-auto space-y-6 text-left sm:text-center"
         >
           <p className="font-newsreader text-lg sm:text-2xl text-[#232020] dark:text-[#FAF6F0] leading-[1.7] font-medium">
-            Inkwell is a novel-writing studio that honors your words and guards your privacy. No login walls. No telemetry. No cloud subscription to hold your unfinished manuscript hostage.
+            Inkwell is a local-first novel-writing studio that keeps drafts in your browser while you work. Open the app when you want to draft, plot, or refine on your own terms.
           </p>
           <p className="font-newsreader text-base sm:text-lg text-[#232020]/80 dark:text-[#FAF6F0]/80 leading-[1.75]">
             While modern tools race to generate prose for you, Inkwell is built strictly for the author who loves the tactile labor of drafting, plotting, and refining every line of human truth.

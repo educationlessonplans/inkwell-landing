@@ -1,15 +1,14 @@
 import React, { useState, useEffect } from 'react';
 import { WaxSealLogo } from './WaxSealLogo';
-import { Menu, X, Download, Moon, Sun } from 'lucide-react';
+import { Menu, X, Moon, Sun, ArrowUpRight } from 'lucide-react';
+import { PRO_PRICE, ANALYSIS_PRICE, SUBSCRIPTION_PRICE } from '../data/content';
 
 interface NavigationProps {
-  onOpenDownload: () => void;
   theme: 'light' | 'dark';
   onToggleTheme: () => void;
 }
 
 export const Navigation: React.FC<NavigationProps> = ({
-  onOpenDownload,
   theme,
   onToggleTheme,
 }) => {
@@ -64,7 +63,7 @@ export const Navigation: React.FC<NavigationProps> = ({
           <WaxSealLogo size="md" variant={theme === 'dark' ? 'dark' : 'light'} />
         </a>
 
-        {/* Center: Desktop Navigation Links */}
+        {/* Center: Section Navigation Links */}
         <div className="hidden md:flex items-center gap-3.5 lg:gap-5 xl:gap-6 min-w-0">
           <a
             href="#workspaces"
@@ -103,14 +102,11 @@ export const Navigation: React.FC<NavigationProps> = ({
             Capabilities
           </a>
           <a
-            href="#pro-teaser"
+            href="#pricing"
             className="whitespace-nowrap inline-flex items-center gap-1 font-sans-plex text-sm font-medium text-[#B45309] dark:text-[#d4a244] hover:text-[#8B261D] transition-colors py-1 shrink-0"
             id="nav-link-pro"
           >
-            <span>Pro</span>
-            <span className="whitespace-nowrap px-1 py-0.5 rounded text-[9px] xl:text-[10px] font-sans-plex uppercase tracking-wider bg-[#C49232]/20 dark:bg-[#d4a244]/20 text-[#B45309] dark:text-[#d4a244] border border-[#C49232]/30 dark:border-[#d4a244]/30">
-              Soon
-            </span>
+            <span>Plans · Pro {PRO_PRICE.amount} / Analysis {ANALYSIS_PRICE.amount} / Subscription {SUBSCRIPTION_PRICE.amount}</span>
           </a>
         </div>
 
@@ -139,15 +135,14 @@ export const Navigation: React.FC<NavigationProps> = ({
           </button>
 
           {/* Primary repeated CTA */}
-          <button
-            onClick={onOpenDownload}
-            type="button"
-            className="btn-wax-seal px-4 py-2 rounded-lg text-sm font-sans-plex font-medium tracking-wide flex items-center gap-2 cursor-pointer shadow-sm hover:scale-102 transition-transform"
+          <a
+            href="/inkwell/app/"
+            className="btn-wax-seal px-4 py-2 rounded-lg text-sm font-sans-plex font-medium tracking-wide flex items-center gap-2 shadow-sm hover:scale-102 transition-transform"
             id="nav-primary-cta"
           >
-            <Download className="w-4 h-4" />
-            <span>Get Inkwell</span>
-          </button>
+            <ArrowUpRight className="w-4 h-4" />
+            <span>Open the writing app</span>
+          </a>
         </div>
 
         {/* Mobile Menu Button & Theme Button */}
@@ -161,15 +156,14 @@ export const Navigation: React.FC<NavigationProps> = ({
             {theme === 'dark' ? <Sun className="w-4 h-4 text-[#d4a244]" /> : <Moon className="w-4 h-4 text-[#8B261D]" />}
           </button>
 
-          <button
-            onClick={onOpenDownload}
-            type="button"
+          <a
+            href="/inkwell/app/"
             className="btn-wax-seal px-3 py-1.5 rounded-lg text-xs font-sans-plex font-medium flex items-center gap-1"
-            aria-label="Download Inkwell"
+            aria-label="Open Inkwell writing app"
           >
-            <Download className="w-3.5 h-3.5" />
-            <span>Get</span>
-          </button>
+            <ArrowUpRight className="w-3.5 h-3.5" />
+            <span>Open app</span>
+          </a>
           
           <button
             onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
@@ -196,7 +190,7 @@ export const Navigation: React.FC<NavigationProps> = ({
               onClick={() => setMobileMenuOpen(false)}
               className="font-sans-plex text-base font-medium text-[#232020] dark:text-[#FAF6F0] hover:text-[#8B261D] dark:hover:text-[#d4a244] py-1.5 border-b border-[#C49232]/15 dark:border-[#d4a244]/15"
             >
-              Workspaces (Workbench, Binder, Ledger)
+              Workspaces (Workbench, Binder, Storylines, Ledger)
             </a>
             <a
               href="#craft-in-motion"
@@ -227,27 +221,21 @@ export const Navigation: React.FC<NavigationProps> = ({
               Writer Capabilities
             </a>
             <a
-              href="#pro-teaser"
+              href="#pricing"
               onClick={() => setMobileMenuOpen(false)}
               className="flex items-center justify-between font-sans-plex text-base font-medium text-[#B45309] dark:text-[#d4a244] hover:text-[#8B261D] py-1.5 border-b border-[#C49232]/15 dark:border-[#d4a244]/15"
             >
-              <span>Inkwell Pro</span>
-              <span className="px-2 py-0.5 rounded text-xs bg-[#C49232]/20 dark:bg-[#d4a244]/20 text-[#B45309] dark:text-[#d4a244] border border-[#C49232]/30 dark:border-[#d4a244]/30">Coming Soon</span>
+              <span>Plans coming soon</span>
+              <span className="px-2 py-0.5 rounded text-xs bg-[#C49232]/20 dark:bg-[#d4a244]/20 text-[#B45309] dark:text-[#d4a244] border border-[#C49232]/30 dark:border-[#d4a244]/30">Coming soon</span>
             </a>
-          </div>
-
-          <div className="pt-3 flex flex-col gap-2.5">
-            <button
-              onClick={() => {
-                setMobileMenuOpen(false);
-                onOpenDownload();
-              }}
-              type="button"
-              className="btn-wax-seal w-full py-2.5 rounded-lg text-sm font-sans-plex font-medium flex items-center justify-center gap-2 cursor-pointer"
+            <a
+              href="/inkwell/app/"
+              onClick={() => setMobileMenuOpen(false)}
+              className="btn-wax-seal w-full py-2.5 rounded-lg text-sm font-sans-plex font-medium flex items-center justify-center gap-2"
             >
-              <Download className="w-4 h-4" />
-              <span>Download Inkwell 0.4.0 — Free</span>
-            </button>
+              <ArrowUpRight className="w-4 h-4" />
+              <span>Open the writing app</span>
+            </a>
           </div>
         </div>
       )}

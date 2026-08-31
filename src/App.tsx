@@ -1,5 +1,5 @@
 /**
- * Inkwell — Offline-First Novel Writing Studio Marketing Landing Page
+ * Inkwell — Browser Novel Writing Studio Marketing Landing Page
  * 
  * References:
  * - https://ellipsus.com: Literary tone, caps eyebrows, craft-first anti-AI stance,
@@ -16,15 +16,14 @@ import { WorkspacesShowcase } from './components/WorkspacesShowcase';
 import { ScrollDynamicSection } from './components/ScrollDynamicSection';
 import { ManuscriptDiffViewer } from './components/ManuscriptDiffViewer';
 import { AdditionalFeaturesGrid } from './components/AdditionalFeaturesGrid';
-import { ProTeaser } from './components/ProTeaser';
+import { PricingSection } from './components/PricingSection';
+import { PricingFaq } from './components/PricingFaq';
 import { FinalCta } from './components/FinalCta';
 import { Footer } from './components/Footer';
-import { DownloadModal } from './components/DownloadModal';
 import { KeyboardShortcutsModal } from './components/KeyboardShortcutsModal';
 import { DynamicBottomBar } from './components/DynamicBottomBar';
 
 export default function App() {
-  const [isDownloadOpen, setIsDownloadOpen] = useState(false);
   const [isShortcutsOpen, setIsShortcutsOpen] = useState(false);
 
   // Dark/Light Theme state with system preference & localStorage fallback
@@ -71,7 +70,6 @@ export default function App() {
       
       {/* 1. Top Navigation with Scroll Progress Bar */}
       <Navigation
-        onOpenDownload={() => setIsDownloadOpen(true)}
         theme={theme}
         onToggleTheme={handleToggleTheme}
       />
@@ -79,7 +77,6 @@ export default function App() {
       <main id="main-content" role="main">
         {/* 2. Hero Section with 3D Tilt Desk & Kinetic Headlines */}
         <Hero
-          onOpenDownload={() => setIsDownloadOpen(true)}
           onOpenShortcuts={() => setIsShortcutsOpen(true)}
         />
 
@@ -87,9 +84,7 @@ export default function App() {
         <Introduction />
 
         {/* 4. Feature Showcase (3 Workspaces + Dark Positioning Strip) */}
-        <WorkspacesShowcase
-          onOpenDownload={() => setIsDownloadOpen(true)}
-        />
+        <WorkspacesShowcase />
 
         {/* 5. Scroll-Driven Dynamic Section (Word-swap, Parallax Marginalia, 4-Stage Metamorphosis, Marquee) */}
         <ScrollDynamicSection />
@@ -102,33 +97,22 @@ export default function App() {
           onOpenShortcuts={() => setIsShortcutsOpen(true)}
         />
 
-        {/* 8. Pro Tier Coming Soon Teaser */}
-        <ProTeaser />
+        {/* 8. Pricing — Free, Pro, Analysis, and Subscription offers (coming soon) */}
+        <PricingSection />
 
-        {/* 9. Final CTA Band */}
-        <FinalCta
-          onOpenDownload={() => setIsDownloadOpen(true)}
-        />
+        {/* 9. Purchase & accounts FAQ */}
+        <PricingFaq />
+
+        {/* 10. Final CTA Band */}
+        <FinalCta />
       </main>
 
       {/* 10. Footer with Literary Quote */}
-      <Footer
-        onOpenDownload={() => setIsDownloadOpen(true)}
-      />
+      <Footer />
 
       {/* 11. Floating Dynamic Navigation Island */}
-      <DynamicBottomBar
-        onOpenDownload={() => setIsDownloadOpen(true)}
-        onOpenShortcuts={() => setIsShortcutsOpen(true)}
-        theme={theme}
-        onToggleTheme={handleToggleTheme}
-      />
+      <DynamicBottomBar />
 
-      {/* Download Modal Dialog */}
-      <DownloadModal
-        isOpen={isDownloadOpen}
-        onClose={() => setIsDownloadOpen(false)}
-      />
 
       {/* Keyboard Shortcuts / ⌘K Command Palette Modal */}
       <KeyboardShortcutsModal

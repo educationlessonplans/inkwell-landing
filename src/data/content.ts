@@ -14,7 +14,7 @@ import { AdditionalFeature, BinderScene, CharacterLore, MarginaliaNote, ProFeatu
 export const HERO_WORD_SWAPS = [
   'only you',
   'your way',
-  'offline',
+  'in your browser',
   'by hand',
   'with craft',
   'in silence',
@@ -36,7 +36,7 @@ export const WHO_ITS_FOR = [
   {
     id: 'privacy-minded',
     label: 'Writers Who Value Privacy',
-    description: 'Your unfinished draft is sacred. No corporate cloud training AI on your early chapters. Ever.',
+    description: 'Your unfinished draft is sacred. Keep it in Inkwell’s local browser workspace while you shape the story.',
     icon: 'ShieldCheck',
   },
 ];
@@ -148,7 +148,7 @@ export const MARQUEE_QUOTES: QuoteItem[] = [
   },
   {
     id: 'q3',
-    quote: 'Zero cloud latency, zero account prompts. Just me, my coffee, and 3,000 words before breakfast.',
+    quote: 'A quiet browser desk, a focused morning, and 3,000 words before breakfast.',
     author: '—The Inkwell Desk',
     context: 'Craft Philosophy',
   },
@@ -160,7 +160,7 @@ export const MARQUEE_QUOTES: QuoteItem[] = [
   },
   {
     id: 'q5',
-    quote: 'Your manuscript lives on your SSD. Not in someone else\'s AI training pipeline.',
+    quote: 'Your manuscript stays in your local workspace, ready for the next revision.',
     author: 'The Inkwell Manifesto',
     context: 'Privacy Guarantee',
   },
@@ -196,7 +196,7 @@ export const ADDITIONAL_FEATURES: AdditionalFeature[] = [
     title: 'Single-File JSON Backup',
     eyebrow: 'OWNERSHIP',
     description: 'Export your entire project—prose, synopsis, corkboard, ledger—into one plain JSON or plain-text rescue bundle.',
-    iconName: 'HardDriveDownload',
+    iconName: 'Backup',
     detail: '100% human-readable',
   },
   {
@@ -224,82 +224,230 @@ export const ADDITIONAL_FEATURES: AdditionalFeature[] = [
     detail: 'Recover cut drafts',
   },
   {
-    id: 'pwa-offline',
-    title: 'Lightweight Desktop & PWA',
+    id: 'browser-workspace',
+    title: 'Private Browser Workspace',
     eyebrow: 'RUNTIME',
-    description: 'Under 20MB precache. Works completely on airplanes, cabins in the woods, or offline subway commutes.',
-    iconName: 'WifiOff',
-    detail: 'Zero network calls',
+    description: 'Open Inkwell in your browser and return to a quiet desk with drafts stored in your local workspace.',
+    iconName: 'Shield',
+    detail: 'Local-first drafting',
   },
 ];
 
 export const PRO_FEAT_TEASERS: ProFeature[] = [
   {
-    id: 'prose-analysis',
-    title: 'Prose Analysis Engine',
-    eyebrow: 'CRAFT METRICS',
-    description: 'Deep mechanical analysis of your manuscript syntax: sentence variety graphs, readability grades (A–F), adverb density, and repeated crutch words.',
-    metricDemo: 'Flesch 78.4 · Grade B+ · 2.1% Passive',
-    badge: 'Prose Diagnostics',
+    id: 'analysis-signals',
+    title: 'Find patterns in your prose',
+    eyebrow: 'PROSE SIGNALS',
+    description: 'Analysis surfaces repeated phrasing, sentence rhythm, readability, and other mechanical signals so revision starts with evidence.',
+    metricDemo: 'Example report · rhythm · repetition · readability',
+    badge: 'Analysis report',
     details: [
-      'Letter grades A through F per scene',
-      'One-click highlight of 400+ weak verbs & filter words',
-      'Pacing rhythm visualizer (sentence length waves)',
-      '100% computed on-device — no cloud analysis',
+      'Sentence and paragraph-level signals',
+      'Highlights for recurring patterns',
+      'A focused scope for the work in front of you',
     ],
   },
   {
-    id: 'tutor-layout',
-    title: 'Tutor Pacing Layout',
-    eyebrow: 'STRUCTURAL GRAPHS',
-    description: 'Scene-by-scene tension arcs, act timing comparisons, and chapter summary sheets formatted for developmental editors and beta readers.',
-    metricDemo: 'Act I Climax at 24.8% · 3 POVs Balanced',
-    badge: 'Structure Analysis',
+    id: 'analysis-evidence',
+    title: 'Understand each finding',
+    eyebrow: 'EVIDENCE',
+    description: 'See the passage, metric, and explanation together instead of guessing what a score means.',
+    metricDemo: 'Evidence view · passage · metric · explanation',
+    badge: 'Evidence drawer',
     details: [
-      'Tension arc graphs mapped to Three-Act / Hero’s Journey',
-      'POV distribution & screen-time balance',
-      'Auto-generated manuscript synopsis matrix',
-      'Direct export to developmental editor PDF notes',
+      'Trace every signal back to the manuscript',
+      'Keep measured and suggested feedback distinct',
+      'Review a scene without losing its context',
     ],
   },
   {
-    id: 'craft-layout',
-    title: 'Author Fingerprint & Corpus',
-    eyebrow: 'STYLE COMPARISON',
-    description: 'Compare your vocabulary uniqueness, dialogue-to-narrative ratio, and descriptive cadence against a classic public-domain literary corpus.',
-    metricDemo: '91% Lexical Richness · 62% Dialogue',
-    badge: 'Stylometry Suite',
+    id: 'analysis-revision',
+    title: 'Revise with intention',
+    eyebrow: 'REVISION',
+    description: 'Review suggested fixes, keep your voice in charge, and make the final call on every line.',
+    metricDemo: 'Revision queue · highlight · quick fix',
+    badge: 'Author-led revision',
     details: [
-      'Stylometric fingerprint vs Woolf, Austen, Hemingway',
-      'Sensory balance detector (sight, sound, tactile, scent)',
-      'Dialogue-to-exposition density heatmap',
-      'Historical fiction vocabulary authenticity scanner',
+      'Queue findings for a deliberate pass',
+      'Apply an optional quick fix when it helps',
+      'Dismiss or restore feedback as your draft changes',
     ],
   },
 ];
 
 
-export const DOWNLOAD_ACTIONS = [
+
+
+
+/**
+ * Pricing & purchase data.
+ *
+ * Paid access is currently coming soon. When purchases open, paid access will
+ * be granted only after server verification on the user's account. Inkwell's
+ * writing workspace remains local-first; cloud storage and provider sync are
+ * not currently part of the product. Prices and future checkout URLs remain
+ * loaded from env so each deployment can configure them without changing this
+ * data shape.
+ */
+
+const readEnvString = (key: string, fallback: string): string => {
+  try {
+    // Vite injects import.meta.env at build time. The landing page is
+    // static, so we resolve once at module load and gracefully fall back
+    // to placeholders so the page never renders blank if a variable is
+    // missing in a preview deploy.
+    const value = (import.meta as any)?.env?.[key];
+    return typeof value === 'string' && value.length > 0 ? value : fallback;
+  } catch {
+    return fallback;
+  }
+};
+
+export const PRO_PRICE = {
+  amount: readEnvString('INKWELL_PRO_PRICE', '$120'),
+  currency: readEnvString('INKWELL_PRO_CURRENCY', 'USD'),
+  label: readEnvString('INKWELL_PRO_PRICE_LABEL', 'One-time purchase · unlimited projects'),
+  // Retain the future checkout URL setting, but keep its fallback on-page
+  // while sales are disabled so the landing CTA never opens an active checkout.
+  checkoutUrl: readEnvString(
+    'INKWELL_PAYPAL_CHECKOUT_URL',
+    '#pricing'
+  ),
+};
+
+export const ANALYSIS_PRICE = {
+  amount: readEnvString('INKWELL_ANALYSIS_PRICE', '$30'),
+  currency: readEnvString('INKWELL_ANALYSIS_CURRENCY', 'USD'),
+  label: readEnvString('INKWELL_ANALYSIS_PRICE_LABEL', 'Current major version · one-time'),
+};
+
+export const SUBSCRIPTION_PRICE = {
+  amount: readEnvString('INKWELL_SUBSCRIPTION_PRICE', '$5/month'),
+  currency: readEnvString('INKWELL_SUBSCRIPTION_CURRENCY', 'USD'),
+  label: readEnvString('INKWELL_SUBSCRIPTION_PRICE_LABEL', 'Billed monthly'),
+};
+
+export interface PricingPlan {
+  id: 'free' | 'pro' | 'analysis' | 'subscription';
+  name: string;
+  tagline: string;
+  price: string;
+  priceSubtext: string;
+  ctaLabel: string;
+  ctaHref: string;
+  ctaNote: string;
+  features: string[];
+  highlighted?: boolean;
+}
+
+export const PRICING_PLANS: PricingPlan[] = [
   {
-    id: 'web-app',
-    os: 'Inkwell Web App',
-    variant: 'Free · v0.4.0 · Install as PWA',
-    filename: 'https://getbacktoteaching.com/inkwell/app/',
-    size: 'Runs in your browser',
-    badge: 'Recommended',
-    icon: 'Globe',
-    href: 'https://getbacktoteaching.com/inkwell/app/',
-    external: true,
+    id: 'free',
+    name: 'Free',
+    tagline: 'Start locally with the writing desk. Paid access requires an account and server verification.',
+    price: '$0',
+    priceSubtext: 'No card for local writing; paid access requires an account.',
+    ctaLabel: 'Open the writing app',
+    ctaHref: '/inkwell/app/',
+    ctaNote: 'Drafts stay in your local browser workspace. Free includes one full Analysis run per day.',
+    features: [
+      'Local Binder, Workbench, and manuscripts',
+      'One full free Analysis run per day',
+      'Distraction-free writing, full keyboard shortcut set',
+      'Export to Markdown, DOCX, and PDF whenever you want',
+      'Local writing stays in your browser; paid access requires an account',
+    ],
   },
   {
-    id: 'github',
-    os: 'View Source on GitHub',
-    variant: 'educationlessonplans/inkwell',
-    filename: 'MIT Licensed',
-    size: 'Open source',
-    badge: 'For Developers',
-    icon: 'Terminal',
-    href: 'https://github.com/educationlessonplans/inkwell',
-    external: true,
+    id: 'pro',
+    name: 'Inkwell Pro',
+    tagline: 'Unlimited projects for a $120 one-time purchase.',
+    price: PRO_PRICE.amount,
+    priceSubtext: PRO_PRICE.label,
+    ctaLabel: 'Coming soon',
+    ctaHref: '#pricing',
+    ctaNote: 'Pro purchases are currently unavailable. When sales open, paid access will require an account and server verification.',
+    features: [
+      'Everything in Free',
+      'Unlimited projects',
+      'The writing desk stays local-first',
+      'Pro does not include Analysis; choose Analysis or Subscription for paid Analysis access',
+    ],
+    highlighted: true,
+  },
+  {
+    id: 'analysis',
+    name: 'Analysis',
+    tagline: 'Current-major-version Analysis access for $30 one time.',
+    price: ANALYSIS_PRICE.amount,
+    priceSubtext: ANALYSIS_PRICE.label,
+    ctaLabel: 'Coming soon',
+    ctaHref: '#pricing',
+    ctaNote: 'Analysis purchases are currently unavailable. When sales open, access will be server-verified on your account.',
+    features: [
+      'Everything in Free',
+      'Analysis access beyond the daily free allowance',
+      'Access to the current major Analysis version',
+      'Author-led reports that support your own revision decisions',
+    ],
+  },
+  {
+    id: 'subscription',
+    name: 'Subscription',
+    tagline: 'Current and future Analysis releases for $5/month.',
+    price: SUBSCRIPTION_PRICE.amount,
+    priceSubtext: SUBSCRIPTION_PRICE.label,
+    ctaLabel: 'Coming soon',
+    ctaHref: '#pricing',
+    ctaNote: 'Subscription purchases are currently unavailable. When sales open, access will be server-verified on your account.',
+    features: [
+      'Everything in Free',
+      'Analysis access beyond the daily free allowance',
+      'Current and future Analysis releases while active',
+      'Server-verified access tied to your account',
+    ],
+  },
+];
+
+export interface PricingFaq {
+  question: string;
+  answer: string;
+}
+
+export const PRICING_FAQ: PricingFaq[] = [
+  {
+    question: 'Do I need an account to use Inkwell?',
+    answer:
+      'You can start local writing without an account. Free includes one full Analysis run per day, and your drafts stay in your browser. An account and server verification are required for paid access.',
+  },
+  {
+    question: 'What are the paid options?',
+    answer:
+      'Inkwell Pro is $120 as a one-time purchase for unlimited projects. Current-major-version Analysis is $30 one time. Subscription is $5/month for current and future Analysis releases while active. Paid sales are currently coming soon.',
+  },
+  {
+    question: 'Does Pro include full Analysis?',
+    answer:
+      'No. Pro covers unlimited projects. Analysis is a separate $30 one-time offer for the current major version, or you can choose the $5/month Subscription for current and future Analysis releases while active.',
+  },
+  {
+    question: 'When can I purchase these offers?',
+    answer:
+      'Sales are currently disabled, so the purchase buttons are marked Coming soon. We will publish the live checkout details when Pro, Analysis, and Subscription become available.',
+  },
+  {
+    question: 'What happens to my drafts if I never sign in?',
+    answer:
+      'They stay exactly where they are — in your browser. You can keep using Free locally, including one full Analysis run per day, and export or import your work yourself. Inkwell does not currently provide cloud storage or Google Drive sync.',
+  },
+  {
+    question: 'Can I sync Inkwell with Google Drive or another provider?',
+    answer:
+      'Not currently. Google Drive and other storage integrations are future capabilities we may add, but they are not shipped. Today the safe path is local browser storage plus explicit export and import; do not treat a future sync plan as available until its account, OAuth, conflict handling, and privacy controls ship.'
+  },
+  {
+    question: 'Can I get a refund?',
+    answer:
+      'Purchases are not open yet. Once sales launch, we will publish clear refund terms alongside the checkout details.',
   },
 ];

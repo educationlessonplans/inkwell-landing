@@ -1,12 +1,8 @@
 import React from 'react';
 import { WaxSealLogo } from './WaxSealLogo';
 import { QuillNibIcon } from './CustomIcons';
+export const Footer: React.FC = () => {
 
-interface FooterProps {
-  onOpenDownload: () => void;
-}
-
-export const Footer: React.FC<FooterProps> = ({ onOpenDownload }) => {
   return (
     <footer 
       id="main-footer"
@@ -22,7 +18,7 @@ export const Footer: React.FC<FooterProps> = ({ onOpenDownload }) => {
           <div className="md:col-span-5 space-y-4 text-left">
             <WaxSealLogo size="md" variant="dark" />
             <p className="font-newsreader text-base text-[#e8e0cf]/80 leading-relaxed max-w-sm">
-              Inkwell is an offline-first novel writing studio. Built to restore the quiet joy of human prose, protected by local-only storage.
+              Inkwell is a browser writing studio for focused novelists. Built to restore the quiet joy of human prose, with drafts kept in your local browser workspace.
             </p>
             <div className="text-xs font-sans-plex text-[#C49232] dark:text-[#d4a244] flex items-center gap-1.5">
               <span>Version 0.4.0 (Development Preview)</span>
@@ -38,12 +34,10 @@ export const Footer: React.FC<FooterProps> = ({ onOpenDownload }) => {
             </div>
             <ul className="space-y-2 text-sm font-sans-plex text-[#FAF6F0]/75">
               <li>
-                <a href="#workspaces" className="hover:text-[#FAF6F0] transition-colors">Workbench & Binder</a>
+                <a href="#workspaces" className="hover:text-[#FAF6F0] transition-colors">Workbench, Binder & Ledger</a>
               </li>
               <li>
-                <button onClick={onOpenDownload} type="button" className="hover:text-[#FAF6F0] transition-colors text-left cursor-pointer">
-                  Download Packages
-                </button>
+                <a href="/inkwell/app/" className="hover:text-[#FAF6F0] transition-colors">Open the writing app</a>
               </li>
               <li>
                 <a href="#features" className="hover:text-[#FAF6F0] transition-colors">Capability Specs</a>

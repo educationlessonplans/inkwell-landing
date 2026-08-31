@@ -7,18 +7,15 @@ import {
   ShieldCheck, 
   WifiOff, 
   UserX, 
-  Download, 
+  ArrowUpRight, 
   History, 
   ChevronUp, 
   ChevronDown 
 } from 'lucide-react';
 import { SealCheckIcon, AntiqueLampIcon, BrassStarIcon } from './CustomIcons';
 
-interface WorkspacesShowcaseProps {
-  onOpenDownload: () => void;
-}
+export const WorkspacesShowcase: React.FC = () => {
 
-export const WorkspacesShowcase: React.FC<WorkspacesShowcaseProps> = ({ onOpenDownload }) => {
   // Binder interactive scene reorder preview state
   const [scenes, setScenes] = useState(BINDER_SCENES_MOCK);
   const [selectedSceneId, setSelectedSceneId] = useState('sc-1');
@@ -49,7 +46,7 @@ export const WorkspacesShowcase: React.FC<WorkspacesShowcaseProps> = ({ onOpenDo
             <span className="italic font-display-playfair text-[#8B261D] dark:text-[#d4a244]">Nothing to distract you.</span>
           </h2>
           <p className="font-newsreader text-lg text-[#232020]/80 dark:text-[#FAF6F0]/80 leading-relaxed">
-            Move seamlessly between pure prose drafting, structural bird’s-eye plotting, and character relationship tracking without losing your flow.
+            Move seamlessly between Workbench drafting, Binder planning, Storylines, and Ledger character tracking without losing your flow.
           </p>
         </div>
 
@@ -90,14 +87,13 @@ export const WorkspacesShowcase: React.FC<WorkspacesShowcaseProps> = ({ onOpenDo
             </ul>
 
             <div className="pt-2">
-              <button
-                onClick={onOpenDownload}
-                type="button"
+              <a
+                href="/inkwell/app/"
                 className="inline-flex items-center gap-2 text-sm font-sans-plex font-semibold text-[#8B261D] dark:text-[#d4a244] hover:text-[#721e17] dark:hover:text-[#FAF6F0] transition-colors"
               >
                 <span>Try the Workbench desk</span>
                 <span>→</span>
-              </button>
+              </a>
             </div>
           </div>
 
@@ -126,7 +122,7 @@ export const WorkspacesShowcase: React.FC<WorkspacesShowcaseProps> = ({ onOpenDo
                   <p className="opacity-40 transition-opacity">
                     The bells in the lower bailey struck midnight, their iron tongues muted by the thickening fog.
                   </p>
-                  <p className="bg-[#8B261D]/5 dark:bg-[#8B261D]/20 p-3 rounded-lg border-l-2 border-[#8B261D] dark:border-[#d4a244] shadow-xs font-medium">
+                  <p className="bg-[#8B261D]/5 dark:bg-[#8B261D]/20 p-3 rounded-lg border border-[#8B261D]/20 dark:border-[#d4a244]/35 shadow-xs font-medium">
                     Kaelen reached into the lining of his sea cloak, fingers brushing against the cold brass cylinder. Inside was the cipher key Maeve had deciphered by candlelight.
                   </p>
                   <p className="opacity-40 transition-opacity">
@@ -286,14 +282,13 @@ export const WorkspacesShowcase: React.FC<WorkspacesShowcaseProps> = ({ onOpenDo
             </ul>
 
             <div className="pt-2">
-              <button
-                onClick={onOpenDownload}
-                type="button"
+              <a
+                href="/inkwell/app/"
                 className="inline-flex items-center gap-2 text-sm font-sans-plex font-semibold text-[#8B261D] dark:text-[#d4a244] hover:text-[#721e17] dark:hover:text-[#FAF6F0] transition-colors"
               >
                 <span>Structure your novel in Binder</span>
                 <span>→</span>
-              </button>
+              </a>
             </div>
           </div>
         </div>
@@ -307,7 +302,7 @@ export const WorkspacesShowcase: React.FC<WorkspacesShowcaseProps> = ({ onOpenDo
                 <BookOpen className="w-5 h-5" />
               </span>
               <span className="text-xs font-sans-plex font-bold tracking-[0.18em] uppercase text-[#26382d] dark:text-[#4E7A5A]">
-                Workspace 03 · The Ledger
+                Workspace 03 · Storylines & Ledger
               </span>
             </div>
 
@@ -330,19 +325,18 @@ export const WorkspacesShowcase: React.FC<WorkspacesShowcaseProps> = ({ onOpenDo
               </li>
               <li className="flex items-start gap-2.5">
                 <SealCheckIcon className="w-4 h-4 text-[#B45309] dark:text-[#d4a244] shrink-0 mt-0.5" />
-                <span><strong>World bible storage:</strong> Lore timelines, magic systems, and secret relationships stored offline.</span>
+                <span><strong>Storylines & lore:</strong> Keep plot threads and world details visible while you move through the manuscript.</span>
               </li>
             </ul>
 
             <div className="pt-2">
-              <button
-                onClick={onOpenDownload}
-                type="button"
+              <a
+                href="/inkwell/app/"
                 className="inline-flex items-center gap-2 text-sm font-sans-plex font-semibold text-[#8B261D] dark:text-[#d4a244] hover:text-[#721e17] dark:hover:text-[#FAF6F0] transition-colors"
               >
-                <span>Explore the character ledger</span>
+                <span>Explore Storylines & Ledger</span>
                 <span>→</span>
-              </button>
+              </a>
             </div>
           </div>
 
@@ -468,7 +462,7 @@ export const WorkspacesShowcase: React.FC<WorkspacesShowcaseProps> = ({ onOpenDo
               Privacy by Architecture
             </div>
             <h3 className="font-display-cormorant text-3xl sm:text-4xl font-bold text-[#FAF6F0]">
-              Offline-first. No account. Private by design.
+              A browser workspace that respects your draft.
             </h3>
           </div>
 
@@ -479,10 +473,10 @@ export const WorkspacesShowcase: React.FC<WorkspacesShowcaseProps> = ({ onOpenDo
                 <WifiOff className="w-5 h-5 text-[#C49232] dark:text-[#d4a244]" />
               </div>
               <h4 className="font-display-cormorant text-2xl font-bold text-[#FAF6F0]">
-                Works Fully Offline
+                Drafts stored locally
               </h4>
               <p className="font-newsreader text-base text-[#e8e0cf]/80 leading-relaxed">
-                IndexedDB client-side database. Write on airplanes, trains, or deep in the mountains without ever needing an internet connection.
+                Inkwell keeps your working drafts in your browser’s local workspace, so your writing desk starts close to the page.
               </p>
             </div>
 
@@ -492,10 +486,10 @@ export const WorkspacesShowcase: React.FC<WorkspacesShowcaseProps> = ({ onOpenDo
                 <UserX className="w-5 h-5 text-[#C49232] dark:text-[#d4a244]" />
               </div>
               <h4 className="font-display-cormorant text-2xl font-bold text-[#FAF6F0]">
-                No Account, Ever
+                Account when you need it
               </h4>
               <p className="font-newsreader text-base text-[#e8e0cf]/80 leading-relaxed">
-                No email registration. No passwords to forget. No corporate onboarding questionnaires. Download and start typing in seconds.
+                Open the browser app to write. An account and payment are only needed for paid capabilities.
               </p>
             </div>
 
@@ -505,25 +499,24 @@ export const WorkspacesShowcase: React.FC<WorkspacesShowcaseProps> = ({ onOpenDo
                 <ShieldCheck className="w-5 h-5 text-[#C49232] dark:text-[#d4a244]" />
               </div>
               <h4 className="font-display-cormorant text-2xl font-bold text-[#FAF6F0]">
-                Zero Cloud Tracking
+                Your voice stays yours
               </h4>
               <p className="font-newsreader text-base text-[#e8e0cf]/80 leading-relaxed">
-                Your draft is never transmitted to remote servers. No AI scrapers ingest your unpublished work for training data.
+                Inkwell surfaces craft signals instead of generating your prose. You decide every revision.
               </p>
             </div>
           </div>
 
           {/* Single repeated CTA inside the dark band */}
           <div className="text-center">
-            <button
-              onClick={onOpenDownload}
-              type="button"
-              className="btn-wax-seal px-8 py-3.5 rounded-xl text-base font-sans-plex font-medium tracking-wide inline-flex items-center gap-2 cursor-pointer shadow-lg hover:scale-105 transition-all"
+            <a
+              href="/inkwell/app/"
+              className="btn-wax-seal px-8 py-3.5 rounded-xl text-base font-sans-plex font-medium tracking-wide inline-flex items-center gap-2 shadow-lg hover:scale-105 transition-all"
               id="positioning-strip-cta"
             >
-              <Download className="w-4 h-4" />
-              <span>Get Inkwell 0.4.0 — Free</span>
-            </button>
+              <ArrowUpRight className="w-4 h-4" />
+              <span>Open Inkwell</span>
+            </a>
           </div>
 
         </div>

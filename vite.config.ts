@@ -3,7 +3,7 @@ import react from '@vitejs/plugin-react';
 import path from 'path';
 import { defineConfig } from 'vite';
 
-const base = process.env.INKWELL_BASE || '/';
+const base = process.env.INKWELL_BASE || './';
 
 export default defineConfig(() => {
   return {

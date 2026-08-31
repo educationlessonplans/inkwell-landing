@@ -28,12 +28,12 @@ export const ProTeaser: React.FC = () => {
             Craft tools for the finished manuscript.
           </h2>
           <p className="font-newsreader text-lg sm:text-xl text-[#232020]/80 dark:text-[#FAF6F0]/80 leading-relaxed">
-            When drafting ends and the painstaking labor of structural revision begins, Inkwell Pro provides on-device developmental diagnostics.
+            When drafting ends and the painstaking labor of structural revision begins, optional Analysis gives you evidence about repeated phrasing, sentence rhythm, readability, and other mechanical signals. Analysis is a separate paid capability, not included with Pro; paid access requires an account and server verification. You decide when to run a report and what to change.
           </p>
           
           <div className="mt-4 inline-flex items-center gap-2 px-3.5 py-1.5 rounded-lg bg-[#FAF6F0] dark:bg-[#1e1611] border border-[#C49232]/30 dark:border-[#d4a244]/25 text-xs font-sans-plex text-[#8B261D] dark:text-[#d4a244]">
             <AlertCircle className="w-4 h-4 text-[#8B261D] dark:text-[#d4a244] shrink-0" />
-            <span><strong>Developmental Notice:</strong> All features are free during 0.4.0 development. Pro unlocks when ready—your drafts always remain 100% yours.</span>
+            <span><strong>Author-led revision:</strong> Analysis reports support your judgment; your drafts remain in your browser's local workspace.</span>
           </div>
         </div>
 
