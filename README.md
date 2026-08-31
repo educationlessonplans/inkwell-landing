@@ -7,11 +7,10 @@ This workspace contains the Inkwell marketing landing page and the deployment as
 Prerequisites: Node.js, npm, Bash, and an authenticated Netlify CLI when deploying.
 
 ```bash
-npm ci
+bash -n build.sh
+bash build.sh
 npm run lint
 npm run verify:offer-contract
-npm run build
-bash build.sh
 bash scripts/smoke-free-domain.sh https://inkwelllanding.netlify.app
 ```
 
