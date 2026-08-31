@@ -13,7 +13,7 @@ This runbook deploys the unified Inkwell landing page and the bundled writing ap
 - Current canonical app source: Git `main` HEAD `a145188` (`harden local readiness and entitlement boundaries`), incorporating the reviewed local readiness changes and prior PWA/Harper fixes; the current auth-enabled artifact was rebuilt from that working tree.
 - Fallback clone revision: `a1451889c2a0fc36b1318a43ddbcf0d15e54d08f` (recovery input only; matches the pushed canonical app readiness boundary)
 
-- `build.sh` builds the landing at `/`, prefers the verified `app-dist` artifact, and falls back to cloning the pinned app revision only when `app-dist` is absent. `netlify.toml` publishes `dist`, mounts the app at `/inkwell/app/`, preserves SPA deep links, and proxies the app API routes to the active dedicated production Worker. GitHub `main` is the active Netlify CI source: pushes run the tracked `bash build.sh` command and publish `dist`; do not substitute an undocumented manual/historical deployment path.
+- `build.sh` builds the landing at `/`, prefers the verified `app-dist` artifact, and falls back to cloning the pinned app revision only when `app-dist` is absent. `netlify.toml` publishes `dist`, mounts the app at `/inkwell/app/`, preserves SPA deep links, and proxies the app API routes to the active dedicated production Worker. GitHub `main` is the active Netlify CI source: pushes run the tracked `bash build.sh` command and publish `dist`; do not substitute an undocumented deployment path.
 
 ## Dedicated production API and data plane
 
