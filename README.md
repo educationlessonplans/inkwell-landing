@@ -1,20 +1,20 @@
-<div align="center">
-<img width="1200" height="475" alt="GHBanner" src="https://ai.google.dev/static/site-assets/images/share-ais-513315318.png" />
-</div>
+# Inkwell landing and unified deployment
 
-# Run and deploy your AI Studio app
+This workspace contains the Inkwell marketing landing page and the deployment assembly that mounts the local-first writing app at `/inkwell/app/`. The canonical app source is maintained separately in `C:/tmp/inkwell-remote`; see `docs/DEPLOYMENT-OWNERSHIP.md` for the ownership boundary.
 
-This contains everything you need to run your app locally.
+## Local validation
 
-View your app in AI Studio: https://ai.studio/apps/c1026ce4-2c0d-4fe7-aa10-097fa98fb4f3
+Prerequisites: Node.js, npm, Bash, and an authenticated Netlify CLI when deploying.
 
-## Run Locally
+```bash
+npm ci
+npm run lint
+npm run verify:offer-contract
+npm run build
+bash build.sh
+bash scripts/smoke-free-domain.sh https://inkwelllanding.netlify.app
+```
 
-**Prerequisites:**  Node.js
+`build.sh` prefers the verified `app-dist` artifact and has a pinned app-source fallback. It publishes the landing at `/` and the mounted app at `/inkwell/app/`. Paid offers remain disabled until the documented Worker, entitlement, and payment approval gates are complete.
 
-
-1. Install dependencies:
-   `npm install`
-2. Set the `GEMINI_API_KEY` in [.env.local](.env.local) to your Gemini API key
-3. Run the app:
-   `npm run dev`
+Only browser-safe public configuration belongs in the landing or app build. Never put service-role keys, PayPal credentials, webhook secrets, GitHub tokens, or private API credentials in source, `.env`, `dist`, or `app-dist`.
