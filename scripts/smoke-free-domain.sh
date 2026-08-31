@@ -117,4 +117,3 @@ check_disabled_endpoint legacy-purchase /api/purchase-start
 check_disabled_endpoint paypal-webhook /api/paypal/webhook
 
 printf 'Smoke checks passed for %s\n' "$BASE_URL"
-

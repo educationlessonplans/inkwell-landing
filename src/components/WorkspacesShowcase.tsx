@@ -1,16 +1,16 @@
 import React, { useState } from 'react';
 import { BINDER_SCENES_MOCK, LEDGER_CHARACTER_MOCK } from '../data/content';
-import { 
-  FileText, 
-  LayoutGrid, 
-  BookOpen, 
-  ShieldCheck, 
-  WifiOff, 
-  UserX, 
-  ArrowUpRight, 
-  History, 
-  ChevronUp, 
-  ChevronDown 
+import {
+  FileText,
+  LayoutGrid,
+  BookOpen,
+  ShieldCheck,
+  WifiOff,
+  UserX,
+  ArrowUpRight,
+  History,
+  ChevronUp,
+  ChevronDown
 } from 'lucide-react';
 import { SealCheckIcon, AntiqueLampIcon, BrassStarIcon } from './CustomIcons';
 
@@ -33,9 +33,9 @@ export const WorkspacesShowcase: React.FC = () => {
 
   return (
     <section id="workspaces" className="py-20 md:py-32 bg-[#FAF6F0] dark:bg-[#120e0b] relative overflow-hidden transition-colors duration-300" aria-label="Core Workspaces">
-      
+
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        
+
         {/* Section Intro Header */}
         <div className="text-center max-w-3xl mx-auto mb-20 md:mb-28">
           <div className="inline-block text-xs font-sans-plex font-semibold tracking-[0.2em] text-[#B45309] dark:text-[#d4a244] uppercase mb-3">
@@ -101,7 +101,7 @@ export const WorkspacesShowcase: React.FC = () => {
           <div className="lg:col-span-7 order-1 lg:order-2">
             <div className="book-cloth-card p-4 sm:p-6 border border-[#C49232]/40 dark:border-[#d4a244]/30 shadow-xl bg-gradient-to-br from-[#F3ECDD] to-[#eae0cd] dark:from-[#211812] dark:to-[#17110d]">
               <div className="bg-[#FAF6F0] dark:bg-[#16100c] rounded-xl border border-[#C49232]/25 dark:border-[#d4a244]/25 p-5 shadow-sm space-y-4">
-                
+
                 {/* Workbench Topbar */}
                 <div className="flex items-center justify-between border-b border-[#C49232]/20 dark:border-[#d4a244]/20 pb-3">
                   <div className="flex items-center gap-2 font-display-cormorant text-lg font-bold text-[#8B261D] dark:text-[#d4a244]">
@@ -153,7 +153,7 @@ export const WorkspacesShowcase: React.FC = () => {
           {/* Left Mockup (alternating side) */}
           <div className="lg:col-span-7">
             <div className="book-cloth-card p-4 sm:p-6 border border-[#C49232]/40 dark:border-[#d4a244]/30 shadow-xl bg-gradient-to-br from-[#F3ECDD] to-[#eae0cd] dark:from-[#211812] dark:to-[#17110d]">
-              
+
               {/* Binder Corkboard Header */}
               <div className="flex items-center justify-between pb-3 mb-4 border-b border-[#C49232]/25 dark:border-[#d4a244]/25">
                 <div className="flex items-center gap-2">
@@ -188,7 +188,7 @@ export const WorkspacesShowcase: React.FC = () => {
                           {sc.title}
                         </span>
                       </div>
-                      
+
                       <div className="flex items-center gap-2">
                         <span
                           className={`text-[10px] font-sans-plex uppercase font-semibold px-2 py-0.5 rounded-full ${
@@ -343,7 +343,7 @@ export const WorkspacesShowcase: React.FC = () => {
           {/* Right Mockup */}
           <div className="lg:col-span-7 order-1 lg:order-2">
             <div className="book-cloth-card p-4 sm:p-6 border border-[#C49232]/40 dark:border-[#d4a244]/30 shadow-xl bg-gradient-to-br from-[#F3ECDD] to-[#eae0cd] dark:from-[#211812] dark:to-[#17110d]">
-              
+
               {/* Ledger Tab Switcher */}
               <div className="flex items-center justify-between border-b border-[#C49232]/25 dark:border-[#d4a244]/25 pb-3 mb-4">
                 <div className="flex items-center gap-2">
@@ -451,7 +451,7 @@ export const WorkspacesShowcase: React.FC = () => {
       </div>
 
       {/* FULL-WIDTH DARK POSITIONING STRIP (Espresso / Ink) */}
-      <div 
+      <div
         className="w-full bg-[#18110c] dark:bg-[#0c0806] text-[#FAF6F0] py-16 md:py-20 border-y border-[#C49232]/30 dark:border-[#d4a244]/25 relative"
         id="privacy-strip"
       >
