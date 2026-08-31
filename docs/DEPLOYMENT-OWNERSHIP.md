@@ -1,22 +1,22 @@
 # Inkwell deployment ownership
 
-Verified 2026-08-31 from the checked-out files, current assembled artifact, and the linked Netlify project.
+Verified 2026-08-31 from this candidate checkout, the synchronized mounted artifact, and the linked Netlify project. This branch is a local staging candidate; it is not yet the connected GitHub CI source.
 
 ## Canonical sources
 
 | Surface | Canonical source | Build identity | Public path |
 | --- | --- | --- | --- |
-| Marketing landing | `C:/tmp/inkwellwebsite` | Vite project (`package.json`, `vite.config.ts`) | `/` |
+| Marketing landing | repository root (`.`) | Vite project (`package.json`, `vite.config.ts`) | `/` |
 | Inkwell web app | `C:/tmp/inkwell-remote` | Git `main`, HEAD `a145188` (`harden local readiness and entitlement boundaries`), incorporating the browser-safe auth template, Harper/PWA/source-manifest fixes, and the reviewed local readiness changes | `/inkwell/app/` |
-| Unified deployed app artifact | `C:/tmp/inkwellwebsite/app-dist` | Bundled output copied into the marketing build | `/inkwell/app/` |
+| Unified deployed app artifact | `app-dist/` | Committed mounted output copied into the marketing build | `/inkwell/app/` |
 
-`C:/tmp/inkwellwebsite` has no local Git metadata. It is a deployment workspace, not an independently versioned source repository. The app repository is the versioned source of truth for app code. Do not edit `app-dist` by hand.
+This candidate checkout versions the landing/deployment source and the verified mounted artifact together. The canonical app code remains in the separate `C:/tmp/inkwell-remote` repository at the recorded app revision. Do not edit `app-dist` by hand.
 
 The fallback clone revision is `a1451889c2a0fc36b1318a43ddbcf0d15e54d08f` (the pushed canonical app readiness boundary). It is a separately pinned recovery input; the bundled `app-dist` artifact remains the normal self-contained deployment input.
 
 ## Build and stitching
 
-`C:/tmp/inkwellwebsite/build.sh` is the canonical unified build entrypoint and is invoked by `netlify.toml` as `bash build.sh`.
+`build.sh` is the unified build entrypoint and is invoked by `netlify.toml` as `bash build.sh`.
 
 1. Capture the marketing project root in `SITE_ROOT`.
 2. Run `npm ci` and build the landing with `INKWELL_BASE=/`.
@@ -27,7 +27,7 @@ The fallback clone revision is `a1451889c2a0fc36b1318a43ddbcf0d15e54d08f` (the p
 
 The fallback clone is a recovery path only. It currently depends on GitHub access/credentials in the build environment; the bundled artifact is required for a self-contained deployment.
 
-The bundled app entrypoint `C:/tmp/inkwellwebsite/app-dist/index.html` has the same SHA-256 as the current local app build's `C:/tmp/inkwell-remote/dist/index.html` (`ce4285252221434dda43823ec7c89f7e999857a2564c3d1c6e28b567da70bddc`). This verifies the entrypoint match for the auth-enabled artifact, not a cryptographic manifest for every bundled file.
+The bundled app entrypoint `app-dist/index.html` has the same SHA-256 as the current local app build's `C:/tmp/inkwell-remote/dist/index.html` (`ce4285252221434dda43823ec7c89f7e999857a2564c3d1c6e28b567da70bddc`). This verifies the entrypoint match for the auth-enabled artifact, not a cryptographic manifest for every bundled file.
 
 ## Configuration and secret boundaries
 
@@ -58,17 +58,17 @@ The linked Netlify project is:
 - Project ID: `f4e12876-23af-4d9d-b774-3bd92be07285`
 - Team: `EduCraft`
 - Temporary public URL: `https://inkwelllanding.netlify.app`
-- Configuration: `C:/tmp/inkwellwebsite/netlify.toml`
+- Configuration: `netlify.toml` in this candidate checkout
 
 No future paid domain is assumed by the build. The site serves the landing at `/`, the app at `/inkwell/app/`, and routes app API paths through the redirects in `netlify.toml`.
 No public purchase-start or PayPal webhook redirects are currently configured: `/api/inkwell-purchase-start`, `/api/purchase-start`, and `/api/paypal/webhook` return HTTP 404 while sales are gated. The current session, entitlement, catalog, and capability redirects remain compatibility-only routes to the legacy `limiteduses` Worker and are not accepted as Inkwell backend provenance. Do not activate payments until the dedicated production Worker, D1 schema, proof/origin configuration, and payment gate are deliberately reconciled and approved.
 
 ## Safe update procedure
 
-1. Change landing source only in `C:/tmp/inkwellwebsite`.
-2. Change app source only in `C:/tmp/inkwell-remote`.
-3. Confirm the app revision intended for release and regenerate `app-dist` from that source using `INKWELL_BASE=/inkwell/app/ npm run build`.
-4. From `C:/tmp/inkwellwebsite`, run `bash build.sh`.
+1. Change landing source in this repository's tracked source files.
+2. Change app source only in the separate canonical `C:/tmp/inkwell-remote` repository.
+3. Confirm the app revision intended for release and regenerate `app-dist/` from that source with the host-aware mounted build: on Windows use `cmd.exe /d /c "set INKWELL_BASE=/inkwell/app/&& npm run build"`; on Bash/Netlify use `INKWELL_BASE=/inkwell/app/ npm run build`.
+4. From this repository root, run `bash build.sh`.
 5. Verify the generated landing and `/inkwell/app/` shell before deployment.
 6. Deploy the `dist` directory through the linked Netlify project.
 7. Run route/API/header smoke checks against the deploy URL.
@@ -77,7 +77,7 @@ Never hand-edit `dist` or `app-dist`, and never point production at an unverifie
 
 ## Current risks and ownership gaps
 
-- The marketing workspace has no local Git metadata, so changes there need an external version-control decision before a new maintainer can review or roll back landing-source changes conventionally.
+- This local candidate is not yet the connected GitHub CI source; pushing it and changing Netlify's stored CI settings are separate release decisions.
 - `app-dist` is a generated/bundled artifact with no manifest recording the source commit. The current entrypoint matches the local app build, but a future workflow should add a source-revision manifest or equivalent release metadata.
 - The app repository contains an ignored `.netlify/` directory used for local deployment tooling state; it is not application source and is excluded by `.gitignore`.
 - The fallback GitHub clone is not the normal deployment path and may fail where anonymous repository access or the configured credential helper is unavailable.
