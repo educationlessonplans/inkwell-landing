@@ -48,11 +48,11 @@ else
   fi
   APP_DIST="$APP_DIR/dist"
 fi
+
 if [ ! -f "$APP_DIST/manifest.webmanifest" ]; then
   echo "ERROR: app artifact is missing manifest.webmanifest" >&2
   exit 1
 fi
-
 
 # 3. Stitch the app dist into the landing dist.
 cd "$SITE_ROOT"

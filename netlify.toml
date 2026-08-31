@@ -6,6 +6,11 @@
   command = "bash build.sh"
   publish = "dist"
 
+[build.environment]
+# The Supabase publishable key is intentionally shipped in the browser bundle.
+# Keep secret scanning enabled for every other configured value.
+SECRETS_SCAN_OMIT_KEYS = "VITE_SUPABASE_PUBLISHABLE_KEY"
+
 # Real Inkwell web app SPA fallback (static assets in /inkwell/app/ are served directly first)
 [[redirects]]
   from = "/inkwell/app/*"
