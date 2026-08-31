@@ -69,8 +69,8 @@ assert.equal(priceValue(PRO_PRICE.amount), 120, 'Pro must remain $120');
 assert.equal(priceValue(ANALYSIS_PRICE.amount), 30, 'Analysis must remain $30');
 assert.equal(priceValue(SUBSCRIPTION_PRICE.amount), 5, 'Subscription must remain $5/month');
 const netlifyConfig = readFileSync(new URL('../netlify.toml', import.meta.url), 'utf8');
-assert.match(netlifyConfig, /Legacy compatibility only: session and entitlement routes/i, 'Legacy session/entitlement routes must remain explicitly held');
-assert.match(netlifyConfig, /Legacy compatibility only: catalog and capability reads/i, 'Legacy catalog/capability routes must remain explicitly held');
+assert.match(netlifyConfig, /Approved dedicated production Worker target for session and entitlement routes/i, 'Dedicated session/entitlement routes must remain explicitly attached');
+assert.match(netlifyConfig, /Approved dedicated production Worker target for catalog and capability reads/i, 'Dedicated catalog/capability routes must remain explicitly attached');
 for (const disabledPath of ['/api/inkwell-purchase-start', '/api/purchase-start', '/api/paypal/webhook']) {
   assert.doesNotMatch(netlifyConfig, new RegExp(`^\\s*from\\s*=\\s*\"${disabledPath}\"`, 'mi'), `Paid route must remain absent from Netlify config: ${disabledPath}`);
 }
