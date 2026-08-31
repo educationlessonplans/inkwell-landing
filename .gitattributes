@@ -1,3 +1,4 @@
 # The mounted app is a committed deployment artifact. Preserve its verified
 # byte identity, including the host-generated line endings.
 app-dist/** -text
+*.sh text eol=lf
