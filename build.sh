@@ -27,7 +27,7 @@ fi
 # maintainers who intentionally remove the bundle before a source rebuild.
 APP_BUNDLE="$SITE_ROOT/app-dist"
 APP_REPO="https://github.com/educationlessonplans/inkwell"
-APP_SHA="a1451889c2a0fc36b1318a43ddbcf0d15e54d08f"
+APP_SHA="281accc4c89c25c7970ca6dd779769059efbc58f"
 APP_DIR="/tmp/inkwell-app"
 
 if [ -d "$APP_BUNDLE" ]; then

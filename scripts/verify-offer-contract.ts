@@ -74,6 +74,59 @@ assert.match(netlifyConfig, /Approved dedicated production Worker target for cat
 for (const disabledPath of ['/api/inkwell-purchase-start', '/api/purchase-start', '/api/paypal/webhook']) {
   assert.doesNotMatch(netlifyConfig, new RegExp(`^\\s*from\\s*=\\s*\"${disabledPath}\"`, 'mi'), `Paid route must remain absent from Netlify config: ${disabledPath}`);
 }
+
+const landingPurchaseGuardSourceEntries = [
+  {
+    relativePath: '../src/components/PricingSection.tsx',
+    requiredPatterns: [
+      /href=\{plan\.ctaHref\}/,
+      /\{plan\.ctaLabel\}/,
+      /\{plan\.ctaNote\}/,
+      /Paid sales are currently unavailable/i,
+    ],
+  },
+  {
+    relativePath: '../src/components/FinalCta.tsx',
+    requiredPatterns: [/href="#pricing"[\s\S]*?See plans/i, /Paid sales are coming soon/i],
+  },
+  {
+    relativePath: '../src/components/DynamicBottomBar.tsx',
+    requiredPatterns: [/href="#pricing"[\s\S]*?See plans/i, /paid offers coming soon/i],
+  },
+  {
+    relativePath: '../src/components/Navigation.tsx',
+    requiredPatterns: [
+      /href="#pricing"[\s\S]*?id="nav-link-pro"[\s\S]*?Plans · Pro/i,
+      /href="#pricing"[\s\S]*?onClick=\{\(\) => setMobileMenuOpen\(false\)\}[\s\S]*?Plans coming soon[\s\S]*?Coming soon/i,
+    ],
+  },
+].map((entry) => ({
+  ...entry,
+  source: readFileSync(new URL(entry.relativePath, import.meta.url), 'utf8'),
+}));
+const landingPurchaseGuardSources = landingPurchaseGuardSourceEntries.map((entry) => entry.source).join('\n');
+
+for (const { relativePath, source, requiredPatterns } of landingPurchaseGuardSourceEntries) {
+  for (const requiredPattern of requiredPatterns) {
+    assert.match(source, requiredPattern, `Paid CTA safety text/target drifted in ${relativePath}`);
+  }
+}
+
+const forbiddenPurchaseIntegrations = [
+  /paypal|stripe|paddle|lemonsqueezy|braintree|square|adyen/i,
+  /\/api\/[\w/-]*(?:buy|subscribe|billing|purchase|checkout|payment|paypal)[\w/-]*/i,
+  /\b(?:start|begin|initiate|launch|redirect|create)\w*(?:purchase|checkout|payment|subscription)\w*/i,
+  /\b\w*(?:purchase|checkout|payment|paypal)\w*\s*\(/i,
+  /onClick\s*=\s*\{[^}]*?(?:purchase|checkout|payment|paypal|subscribe)/i,
+];
+for (const forbiddenPattern of forbiddenPurchaseIntegrations) {
+  assert.doesNotMatch(landingPurchaseGuardSources, forbiddenPattern, 'Landing CTA sources must not initiate a payment/provider flow');
+}
+
+const forbiddenActiveSaleWording =
+  /\b(?:buy|purchase|subscribe|pay|order|enroll)\b(?:\s+(?:now|today|here))?|\b(?:sales?|plans?)\s+(?:are\s+)?(?:open|live|available)|\b(?:now|currently)\s+available|\b(?:available|open)\s+for\s+(?:purchase|sale)|\b(?:unlock|get|activate)\s+(?:Inkwell\s+)?(?:Pro|Analysis|Subscription|access|plans?)\b/i;
+assert.doesNotMatch(landingPurchaseGuardSources, forbiddenActiveSaleWording, 'Landing CTA sources must retain the paid-sales hold');
+assert.match(landingPurchaseGuardSources, /Paid sales are currently unavailable|Paid offers coming soon|Plans coming soon/i, 'Landing must explain the paid-sales hold');
 const appViteConfig = readFileSync(new URL('../../inkwell-remote/vite.config.ts', import.meta.url), 'utf8');
 assert.match(appViteConfig, /description:\s*'Inkwell — a private, local-first writing studio for serious fiction writers/i, 'Canonical app manifest description drifted');
 assert.match(appViteConfig, /theme_color:\s*'#8B261D'/i, 'Canonical app manifest theme color drifted');
