@@ -22,15 +22,15 @@ else
   INKWELL_BASE=/ npm run build
 fi
 
-# 2. App — prefer a source rebuild whenever Netlify provides the browser-safe
-# Supabase key, so auth cannot silently disappear behind a stale artifact. The
-# tracked app bundle remains the no-auth local fallback only.
+# 2. App — use the tracked auth-enabled artifact so local and manual Netlify
+# deployments preserve the browser-safe Supabase sign-in configuration. A
+# pinned source clone remains the fallback when maintainers remove the bundle.
 APP_BUNDLE="$SITE_ROOT/app-dist"
 APP_REPO="https://github.com/educationlessonplans/inkwell"
 APP_SHA="281accc4c89c25c7970ca6dd779769059efbc58f"
 APP_DIR="/tmp/inkwell-app"
 
-if [ -d "$APP_BUNDLE" ] && [ -z "${VITE_SUPABASE_PUBLISHABLE_KEY:-}" ]; then
+if [ -d "$APP_BUNDLE" ]; then
   echo "Using bundled app artifact at $APP_BUNDLE"
   APP_DIST="$APP_BUNDLE"
 else
