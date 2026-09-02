@@ -1,1 +1,0 @@
-import{B as r}from"./BinaryModule-Aj1vLnwf-D2fYlShb.js";import"./index-BgdaECxV.js";import"./tiptap-Cn9Z1Ajg.js";import"./nlp-CAQbg9o9.js";const a=""+new URL("/inkwell/app/assets/harper_wasm_bg-LWXDb7Ll.wasm",import.meta.url).href,p=r.create(a,"full");export{p as binary};
