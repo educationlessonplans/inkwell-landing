@@ -397,9 +397,9 @@ export const PRICING_PLANS: PricingPlan[] = [
     tagline: 'Current and future Analysis releases for $5/month.',
     price: SUBSCRIPTION_PRICE.amount,
     priceSubtext: SUBSCRIPTION_PRICE.label,
-    ctaLabel: 'Coming soon',
-    ctaHref: '#pricing',
-    ctaNote: 'Subscription purchases are currently unavailable. When sales open, access will be server-verified on your account.',
+    ctaLabel: 'Subscribe ($5/mo)',
+    ctaHref: '/inkwell/app/',
+    ctaNote: 'Subscribe via PayPal in the app. Access is server-verified on your account.',
     features: [
       'Everything in Free',
       'Analysis access beyond the daily free allowance',
