@@ -91,8 +91,15 @@ SECRETS_SCAN_OMIT_KEYS = "VITE_SUPABASE_PUBLISHABLE_KEY"
   status = 200
   force = true
 
+ [[redirects]]
+   from = "/api/capabilities"
+   to = "https://inkwell-entitlement-worker.teachtylerhenley.workers.dev/api/capabilities"
+   status = 200
+   force = true
+
 [[redirects]]
-  from = "/api/capabilities"
-  to = "https://inkwell-entitlement-worker.teachtylerhenley.workers.dev/api/capabilities"
+  # Approved dedicated production Worker target for PayPal purchase start.
+  from = "/api/inkwell-purchase-start"
+  to = "https://inkwell-entitlement-worker.teachtylerhenley.workers.dev/api/inkwell-purchase-start"
   status = 200
   force = true
