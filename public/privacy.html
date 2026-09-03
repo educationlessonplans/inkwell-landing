@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Privacy Policy — Inkwell</title>
+  <style>
+    :root {
+      --bg: #F5EFE6;
+      --card-bg: #EBDDC8;
+      --text: #2C241E;
+      --muted: #6B5B4D;
+      --accent: #8B261D;
+      --border: #DFD3BF;
+    }
+    @media (prefers-color-scheme: dark) {
+      :root {
+        --bg: #1B1612;
+        --card-bg: #26201A;
+        --text: #EBDDC8;
+        --muted: #A39281;
+        --accent: #C85A48;
+        --border: #3D332A;
+      }
+    }
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Georgia, serif;
+      background-color: var(--bg);
+      color: var(--text);
+      line-height: 1.6;
+      margin: 0;
+      padding: 40px 20px;
+    }
+    .container {
+      max-width: 720px;
+      margin: 0 auto;
+      background: var(--card-bg);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      padding: 36px 32px;
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
+    }
+    h1 {
+      font-family: Georgia, serif;
+      font-size: 28px;
+      margin-top: 0;
+      color: var(--accent);
+    }
+    h2 {
+      font-family: Georgia, serif;
+      font-size: 18px;
+      margin-top: 28px;
+      border-bottom: 1px solid var(--border);
+      padding-bottom: 6px;
+    }
+    p, li {
+      font-size: 14px;
+      color: var(--text);
+    }
+    .muted {
+      color: var(--muted);
+      font-size: 12px;
+    }
+    a {
+      color: var(--accent);
+      text-decoration: none;
+    }
+    a:hover {
+      text-decoration: underline;
+    }
+    .back {
+      display: inline-block;
+      margin-bottom: 20px;
+      font-size: 13px;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <a href="/" class="back">← Back to Inkwell</a>
+    <h1>Privacy Policy</h1>
+    <p class="muted">Last updated: September 3, 2026</p>
+
+    <p>Inkwell is designed with a strict privacy-first architecture. Your manuscripts, characters, plot notes, and writing data belong exclusively to you.</p>
+
+    <h2>1. Data Storage & Ownership</h2>
+    <p>All manuscript content, story outlines, character databases, and project settings are stored locally on your device within your browser's IndexedDB storage. We do not store, read, or sell your writing on our servers.</p>
+
+    <h2>2. Google Drive Integration</h2>
+    <p>Inkwell provides an optional Google Drive integration allowing you to back up and sync your projects across your personal devices:</p>
+    <ul>
+      <li><strong>User-Owned Storage:</strong> All backups are stored exclusively in your own personal Google Drive account (either in a private application folder or as an exported file in your Drive).</li>
+      <li><strong>Direct Client Communication:</strong> Inkwell interacts directly between your browser and Google's Drive API. Your backups, tokens, and prose never transit through our servers.</li>
+      <li><strong>Limited Scope:</strong> Inkwell requests access only to the files and application data it creates (<code>drive.appdata</code> and <code>drive.file</code>). Inkwell cannot see, access, modify, or delete any other files or folders in your Google Drive.</li>
+      <li><strong>No Server-Side Token Retention:</strong> Google OAuth tokens are kept in temporary browser memory during your active session and are never saved to disk, cookies, or remote databases.</li>
+    </ul>
+
+    <h2>3. Authentication</h2>
+    <p>When you create an account or sign in via Google OAuth or magic link, your authentication identity is managed securely via Supabase Auth. We collect only your email address to authenticate your session and verify subscription entitlements.</p>
+
+    <h2>4. Analytics & Third Parties</h2>
+    <p>Inkwell does not sell, rent, or trade your personal information or writing data to any third parties or advertisers.</p>
+
+    <h2>5. Contact Us</h2>
+    <p>If you have any questions about this Privacy Policy, you can reach us at <a href="mailto:teachtylerhenley@gmail.com">teachtylerhenley@gmail.com</a>.</p>
+  </div>
+</body>
+</html>
