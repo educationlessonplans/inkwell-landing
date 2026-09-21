@@ -1,0 +1,18 @@
+{
+  "artifact": "Inkwell Story Architect",
+  "source_repository": "https://github.com/educationlessonplans/inkwell",
+  "source_commit": "9e447405b022506f7de8bb30875e0fa28c9e89d3",
+  "source_branch": "feature/story-architect-foundation",
+  "public_base": "/inkwell/app/",
+  "index_sha256": "226f0466e61db7b52416a8a10a18390467dc8f37f0301312d22581e384eca02b",
+  "unit_tests": {
+    "passed": 1402,
+    "files": 192
+  },
+  "browser_tests": {
+    "passed": 60,
+    "skipped": 24,
+    "failed": 0
+  },
+  "hardware_acceptance": "not verified; no connected device"
+}

@@ -42,7 +42,7 @@ landing_body="$TMP_DIR/landing-copy.body"
 landing_copy_status="$(curl -sS -L --max-time 30 -o "$landing_body" -w '%{http_code}' "$BASE_URL/")" || fail 'landing copy request failed'
 [[ "$landing_copy_status" == "200" ]] || fail "landing copy returned HTTP $landing_copy_status"
 grep -Eiq 'without an account|no account is needed for local writing' "$landing_body" || fail 'landing copy omitted account-free local-writing boundary'
-grep -Eiq 'paid (access|sales).*account.*(server|verif)' "$landing_body" || fail 'landing copy omitted account/server verification boundary'
+grep -Eiq '(paid (access|sales)|subscription).*account.*(server|verif)' "$landing_body" || fail 'landing copy omitted paid-or-subscription account/server verification boundary'
 if grep -Eiq 'no signup|no account required|no subscriptions|unlimited offline analyses' "$landing_body"; then
   fail 'landing copy contains a stale account, subscription, or offline-analysis claim'
 fi
@@ -112,7 +112,24 @@ check_disabled_endpoint() {
   printf 'PASS: %-14s HTTP 404 (disabled) %s\n' "$name" "$path"
 }
 
-check_disabled_endpoint purchase-start /api/inkwell-purchase-start
+# The active Subscription entry point is protected by account authentication;
+# legacy purchase and the unexposed webhook remain disabled. Never accept a
+# successful anonymous purchase or an SPA HTML fallback as a passing result.
+check_protected_purchase_start() {
+  local body="$TMP_DIR/purchase-start.body"
+  local status
+  status="$(curl -sS -L --max-time 30 -H 'content-type: application/json' --data '{}' -o "$body" -w '%{http_code}' "$BASE_URL/api/inkwell-purchase-start")" || fail 'protected purchase request failed'
+  case "$status" in
+    401|403) ;;
+    *) fail "anonymous subscription purchase returned HTTP $status; expected authentication denial" ;;
+  esac
+  if grep -Eiq '<!doctype|<html' "$body"; then
+    fail 'subscription purchase response was HTML instead of an authorization denial'
+  fi
+  printf 'PASS: %-14s HTTP %s anonymous request denied\n' 'purchase-start' "$status"
+}
+
+check_protected_purchase_start
 check_disabled_endpoint legacy-purchase /api/purchase-start
 check_disabled_endpoint paypal-webhook /api/paypal/webhook
 

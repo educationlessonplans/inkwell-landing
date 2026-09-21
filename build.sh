@@ -27,7 +27,7 @@ fi
 # pinned source clone remains the fallback when maintainers remove the bundle.
 APP_BUNDLE="$SITE_ROOT/app-dist"
 APP_REPO="https://github.com/educationlessonplans/inkwell"
-APP_SHA="281accc4c89c25c7970ca6dd779769059efbc58f"
+APP_SHA="9e447405b022506f7de8bb30875e0fa28c9e89d3"
 APP_DIR="/tmp/inkwell-app"
 
 if [ -d "$APP_BUNDLE" ]; then
